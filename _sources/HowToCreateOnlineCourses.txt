@@ -208,7 +208,7 @@ The user can click "Publish" button in the right side to publish this lesson to 
    :align: center
 
 .. image:: images/edx/LMS2.png
-   :height: 300px
+   :height: 260px
    :width: 700px
    :alt: LMS2
    :align: center
