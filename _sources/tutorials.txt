@@ -10,7 +10,6 @@ Tutorials
    :height: 75px
    :width: 135px
    :align: middle
-   :link: http://example.com/
 
 .. |logo3| image:: images/cover/hadoop.jpg
    :height: 75px
