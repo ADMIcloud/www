@@ -5,7 +5,6 @@ Tutorials
    :height: 75px
    :width: 135px
    :align: middle
-   :apilink: http://admicloud.github.io/www/HowToCreateOnlineCourses.html
 
 .. |logo2| image:: images/cover/amazon.png
    :height: 75px
@@ -25,6 +24,8 @@ Tutorials
 +--------------------+--+-------------------+--+-------------------+--+-------------------+
 | |logo1|            |  | |logo2|           |  | |logo3|           |  | |logo4|           |
 +--------------------+--+-------------------+--+-------------------+--+-------------------+
+| - edx_             |  | amazon_           |  |                   |  | storm_            |
+|                    |  |                   |  |                   |  |                   |
 | - video_           |  |                   |  | - `setup hadoop`_ |  |                   |
 | - module_          |  |                   |  | - wordcount_      |  |                   |
 | - import_          |  |                   |  | - kmeans_         |  |                   |
