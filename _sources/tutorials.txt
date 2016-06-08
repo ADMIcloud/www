@@ -26,10 +26,10 @@ Tutorials
 +--------------------+--+-------------------+--+-------------------+--+-------------------+
 | | edx_             |  | - amazon_         |  | - `setup hadoop`_ |  | - storm_          |
 |                    |  |                   |  |                   |  |                   |
-|   - video_         |  |                   |  | - wordcount_      |  |                   |
-|   - module_        |  |                   |  | - kmeans_         |  |                   |
-|   - import_        |  |                   |  |                   |  |                   |
-|   - course_        |  |                   |  |                   |  |                   |
+| - video_           |  |                   |  | - wordcount_      |  |                   |
+| - module_          |  |                   |  | - kmeans_         |  |                   |
+| - import_          |  |                   |  |                   |  |                   |
+| - course_          |  |                   |  |                   |  |                   |
 +--------------------+--+-------------------+--+-------------------+--+-------------------+
  
 .. _edx: http://admicloud.github.io/www/HowToCreateOnlineCourses.html
