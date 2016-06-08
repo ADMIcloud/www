@@ -21,15 +21,15 @@ Tutorials
    :width: 135px
    :align: middle
 
-+---------+---------+----------------------------+---------+
-| |logo1| | |logo2| |         |logo3|            | |logo4| |
-+---------+---------+----------------------------+---------+
-|    edx_ | amazon_ | hadoop_-WordCount_-Kmeans_ |  storm_ |
-+---------+---------+----------------------------+---------+
++---------+---------+---------+----------------------------+---------+
+| |logo1| |         | |logo2| |         |logo3|            | |logo4| |
++---------+---------+---------+----------------------------+---------+
+|    edx_ |         | amazon_ | hadoop_-wordcount_-kmeans_ |  storm_ |
++---------+---------+---------+----------------------------+---------+
  
 .. _edx: http://admicloud.github.io/www/HowToCreateOnlineCourses.html
 .. _amazon: http://admicloud.github.io/www/HowToUseAmazonCloud.html
-.. _hadoop: http://admicloud.github.io/www/HowToProgram.html
+.. _hadoop: http://admicloud.github.io/www/SetUpHadoop.html
 .. _storm: http://admicloud.github.io/www/storm.html
-.. _WordCount: http://admicloud.github.io/www/wordcount.html
-.. _Kmeans: http://admicloud.github.io/www/kmeans.html
+.. _wordcount: http://admicloud.github.io/www/wordcount.html
+.. _kmeans: http://admicloud.github.io/www/kmeans.html
