@@ -217,14 +217,14 @@ Another cleaner method would be to create a MVN project for the WordCount exampl
 Running the Code
 --------------
 
-Next we will run the example on a local standalone Hadoop node. Before we do so, we need to create a set of input files that will be given to the program.
+Next we will run the example on distributed mode. Before we do so, we need to create a set of input files that will be given to the program.
 
 First create a directory in which to put all the input files. The program will read all the files that are in this folder. Use the following commands to create the files and directories.
 
 .. code-block:: bash
 
-    mkdir -p ~/hadoop/admicloudtutorial/wordcount/input
-    cd ~/hadoop/admicloudtutorial/wordcount/input
+    mkdir wordcount_input
+    cd wordcount_input
     vim 1.txt
     vim 2.txt
 
@@ -234,17 +234,30 @@ Create two text files 1.txt and 2.txt under the folder containing the following:
 
 2.txt - Hello Hadoop Goodbye Hadoop
 
+Create a directory on HDFS and copy these two files into HDFS.
+
+.. code-block:: bash
+
+    $HADOOP_HOME/bin/hdfs dfs -mkdir wordcount_input
+    $HADOOP_HOME/bin/hdfs dfs -put wordcount_input/* wordcount_input
+
+You can check the files on HDFS using.
+
+.. code-block:: bash
+
+    $HADOOP_HOME/bin/hdfs dfs -ls wordcount_input
+
 To run the mapreduce job execute the following command from the Hadoop directory:
 
 .. code-block:: bash
-    cd ~/software/hadoop-2.7.2
-    ./bin/hadoop jar wc.jar WordCount ~/hadoop/admicloudtutorial/wordcount/input ~/hadoop/admicloudtutorial/wordcount/output
+
+    $HADOOP_HOME/bin/hadoop jar wc.jar WordCount wordcount_input wordcount_output
 
 After the job has completed, execute the following command and check the output that was generated.
 
 .. code-block:: bash
 
-    cat ~/hadoop/admicloudtutorial/wordcount/output/part-r-00000
+    $HADOOP_HOME/bin/hdfs dfs -cat wordcount_output/*
     Bye	1
     Goodbye	1
     Hadoop	2

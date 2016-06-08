@@ -26,8 +26,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="ADMICloud  documentation" href="index.html" />
-    <link rel="up" title="How to program using data processing tools Hadoop/Storm" href="HowToProgram.html" />
-    <link rel="prev" title="K-Means" href="kmeans.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -52,27 +50,27 @@
 <div class="figure">
 <a class="reference internal image-reference" href="http://storm.apache.org/images/logo.png"><img alt="Storm" src="http://storm.apache.org/images/logo.png" style="width: 400px;" /></a>
 </div>
-<p>Apache Storm is a distributed stream processing engine. Storm creates a directed acyclic graph (DAG) which consists of &#8220;sprouts&#8221; and &#8220;bolts&#8221; graph verticies which handle the streaming and processing of data. As Storm processes continuing streaming data, it is configured to run infinietely until explicitly terminated.</p>
-<p>These are the things we will look at in this Tutorial.</p>
+<p>Apache Storm is a distributed stream processing engine. Storm creates a directed acyclic graph (DAG) which consists of &#8220;spout&#8221; and &#8220;bolt&#8221; graph vertices which handle the streaming and processing of data. As Storm processes continuous streaming data, it is configured to run infinitely until explicitly terminated.</p>
+<p>These are the things we will look at in this tutorial:</p>
 <ul class="simple">
-<li>Word Count program</li>
+<li>WordCount program</li>
 <li>Download Apache Storm and set it up on your machine</li>
-<li>Run Word Count</li>
+<li>Run WordCount</li>
 </ul>
 </div>
-<div class="section" id="word-count-example">
-<h2>Word Count example<a class="headerlink" href="#word-count-example" title="Permalink to this headline">¶</a></h2>
-<p>Word count is a simple streaming example where storm keeps track of the words and their counts streaming in. This example
-is included in the Storm distribution. The source code of the example can be found in</p>
+<div class="section" id="wordcount-example">
+<h2>WordCount example<a class="headerlink" href="#wordcount-example" title="Permalink to this headline">¶</a></h2>
+<p>WordCount is a simple streaming example where Storm is used to keep track of the words and their counts streaming in. This example
+is included in the Storm distribution. The source code can be found in</p>
 <p>examples/storm-starter/src/jvm/storm/starter/WordCountTopology.java</p>
 <p>In this example there are three processing units arranged in the graph.</p>
 <a class="reference internal image-reference" href="_images/storm_wordcount.png"><img alt="word count show case" class="align-center" src="_images/storm_wordcount.png" style="width: 520px; height: 300px;" /></a>
-<p>RandomSentenceSpout generates random sentnces. SplitSentence splits these sentences into words. These words are sent to
+<p>RandomSentenceSpout generates random sentences. SplitSentence splits these sentences into words, which are sent to the
 WordCount bolt where the count is kept.</p>
-<p>Here is the source code of the WordCount.</p>
+<p>Here is the source code of WordCount.</p>
 <div class="section" id="randsentencespout">
 <h3>RandSentenceSpout<a class="headerlink" href="#randsentencespout" title="Permalink to this headline">¶</a></h3>
-<p>First it generates a random sentence and emit it to the Splitter.</p>
+<p>First it generates a random sentence and emits it to the Splitter.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RandomSentenceSpout</span> <span class="kd">extends</span> <span class="n">BaseRichSpout</span> <span class="o">{</span>
   <span class="n">SpoutOutputCollector</span> <span class="n">_collector</span><span class="o">;</span>
   <span class="n">Random</span> <span class="n">_rand</span><span class="o">;</span>
@@ -112,7 +110,7 @@ WordCount bolt where the count is kept.</p>
 </div>
 <div class="section" id="splitsentence-bolt">
 <h3>SplitSentence Bolt<a class="headerlink" href="#splitsentence-bolt" title="Permalink to this headline">¶</a></h3>
-<p>Receives sentences and splits them in to words. Words are emitted to the WordCount bolt.</p>
+<p>Receives sentences and splits them into words. Words are emitted to the WordCount bolt.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">SplitSentence</span> <span class="kd">extends</span> <span class="n">ShellBolt</span> <span class="kd">implements</span> <span class="n">IRichBolt</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="nf">SplitSentence</span><span class="o">()</span> <span class="o">{</span>
       <span class="kd">super</span><span class="o">(</span><span class="s">&quot;python&quot;</span><span class="o">,</span> <span class="s">&quot;splitsentence.py&quot;</span><span class="o">);</span>
@@ -170,7 +168,7 @@ WordCount bolt where the count is kept.</p>
 </div>
 <div class="section" id="building-the-topology">
 <h3>Building the Topology<a class="headerlink" href="#building-the-topology" title="Permalink to this headline">¶</a></h3>
-<p>This code arranges the components described earlier in to a graph.</p>
+<p>This code arranges the components described earlier into a graph.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
     <span class="n">TopologyBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TopologyBuilder</span><span class="o">();</span>
     <span class="n">builder</span><span class="o">.</span><span class="na">setSpout</span><span class="o">(</span><span class="s">&quot;spout&quot;</span><span class="o">,</span> <span class="k">new</span> <span class="n">RandomSentenceSpout</span><span class="o">(),</span> <span class="mi">5</span><span class="o">);</span>
@@ -198,7 +196,7 @@ WordCount bolt where the count is kept.</p>
 </div>
 <div class="section" id="storm-setup">
 <h2>Storm Setup<a class="headerlink" href="#storm-setup" title="Permalink to this headline">¶</a></h2>
-<p>Now lets look at how to setup a Storm Cluster in your local machine. A storm cluster needs Apache ZooKeeper running</p>
+<p>Now let&#8217;s look at how to set up a Storm Cluster in your local machine. A Storm cluster needs to have Apache ZooKeeper running.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://mirrors.ibiblio.org/apache/storm/apache-storm-0.10.1/apache-storm-0.10.1.tar.gz
 tar -xvf apache-storm-0.10.1.tar.gz
 </pre></div>
@@ -218,31 +216,31 @@ cp conf/zoo_sample.cfg conf/zoo.cfg
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ../apache-storm-0.10.1
 </pre></div>
 </div>
-<p>In one terminal start the nimbus server</p>
+<p>In one terminal, start the nimbus server.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>./bin/storm nimbus
 </pre></div>
 </div>
-<p>In another terminal start the supervisor</p>
+<p>In another terminal, start the supervisor.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>./bin/storm supervisor
 </pre></div>
 </div>
-<p>In the 3rd terminal start the Storm Web UI</p>
+<p>In the 3rd terminal, start the Storm Web UI.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>./bin/storm ui
 </pre></div>
 </div>
-<p>Above command will start the Storm UI. You can visit</p>
+<p>The above command will start the Storm UI. You can visit</p>
 <p><a class="reference external" href="http://localhost:8080/index.html">http://localhost:8080/index.html</a></p>
-<p>to view the storm cluster.</p>
+<p>to view the Storm cluster.</p>
 </div>
-<div class="section" id="run-the-example-word-count">
-<h3>Run the example word count<a class="headerlink" href="#run-the-example-word-count" title="Permalink to this headline">¶</a></h3>
-<p>Now open another termial to run a Storm example word count</p>
+<div class="section" id="run-the-example-wordcount">
+<h3>Run the example WordCount<a class="headerlink" href="#run-the-example-wordcount" title="Permalink to this headline">¶</a></h3>
+<p>Now open another terminal to run a Storm example WordCount.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>./bin/storm jar examples/storm-starter/storm-starter-topologies-0.10.1.jar storm.starter.WordCountTopology WordCount
 </pre></div>
 </div>
 <p>You can view the topology by going to the web browser.</p>
 <p><a class="reference external" href="http://localhost:8080/index.html">http://localhost:8080/index.html</a></p>
-<p>To kill the topology use the command</p>
+<p>To kill the topology, use the following command:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>./bin/storm <span class="nb">kill</span> WordCount
 </pre></div>
 </div>
@@ -256,12 +254,12 @@ cp conf/zoo_sample.cfg conf/zoo.cfg
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper"><ul class="globaltoc"
-><ul class="current">
+><ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Cloud Computing Workshop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="members.html">Members</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 </ul>
 
 </ul>
@@ -286,12 +284,7 @@ cp conf/zoo_sample.cfg conf/zoo.cfg
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="kmeans.html" title="K-Means"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">ADMICloud  documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="tutorials.html" >Tutorials</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="HowToProgram.html" accesskey="U">How to program using data processing tools Hadoop/Storm</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">ADMICloud  documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

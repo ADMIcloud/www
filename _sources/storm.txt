@@ -8,20 +8,20 @@ Apache Storm
    :alt: Storm
    :width: 400
 
-Apache Storm is a distributed stream processing engine. Storm creates a directed acyclic graph (DAG) which consists of "sprouts" and "bolts" graph verticies which handle the streaming and processing of data. As Storm processes continuing streaming data, it is configured to run infinietely until explicitly terminated.
+Apache Storm is a distributed stream processing engine. Storm creates a directed acyclic graph (DAG) which consists of "spout" and "bolt" graph vertices which handle the streaming and processing of data. As Storm processes continuous streaming data, it is configured to run infinitely until explicitly terminated.
 
 
-These are the things we will look at in this Tutorial.
+These are the things we will look at in this tutorial:
 
-* Word Count program
+* WordCount program
 * Download Apache Storm and set it up on your machine
-* Run Word Count
+* Run WordCount
 
-Word Count example
+WordCount example
 ------------------
 
-Word count is a simple streaming example where storm keeps track of the words and their counts streaming in. This example
-is included in the Storm distribution. The source code of the example can be found in
+WordCount is a simple streaming example where Storm is used to keep track of the words and their counts streaming in. This example
+is included in the Storm distribution. The source code can be found in
 
 examples/storm-starter/src/jvm/storm/starter/WordCountTopology.java
 
@@ -33,16 +33,16 @@ In this example there are three processing units arranged in the graph.
     :alt: word count show case
     :align: center
 
-RandomSentenceSpout generates random sentnces. SplitSentence splits these sentences into words. These words are sent to
+RandomSentenceSpout generates random sentences. SplitSentence splits these sentences into words, which are sent to the
 WordCount bolt where the count is kept.
 
-Here is the source code of the WordCount.
+Here is the source code of WordCount.
 
 ------------------
 RandSentenceSpout
 ------------------
 
-First it generates a random sentence and emit it to the Splitter.
+First it generates a random sentence and emits it to the Splitter.
 
 .. code-block:: java
 
@@ -85,7 +85,7 @@ First it generates a random sentence and emit it to the Splitter.
 SplitSentence Bolt
 ------------------
 
-Receives sentences and splits them in to words. Words are emitted to the WordCount bolt.
+Receives sentences and splits them into words. Words are emitted to the WordCount bolt.
 
 .. code-block:: java
 
@@ -151,7 +151,7 @@ WordCount Bolt
 Building the Topology
 ---------------------
 
-This code arranges the components described earlier in to a graph.
+This code arranges the components described earlier into a graph.
 
 .. code-block:: java
 
@@ -180,7 +180,7 @@ This code arranges the components described earlier in to a graph.
 Storm Setup
 -----------
 
-Now lets look at how to setup a Storm Cluster in your local machine. A storm cluster needs Apache ZooKeeper running
+Now let's look at how to set up a Storm Cluster in your local machine. A Storm cluster needs to have Apache ZooKeeper running.
 
 
 .. code-block:: bash
@@ -208,35 +208,35 @@ Start Storm Cluster on Local machine
 
     cd ../apache-storm-0.10.1
 
-In one terminal start the nimbus server
+In one terminal, start the nimbus server.
 
 .. code-block:: bash
 
     ./bin/storm nimbus
 
-In another terminal start the supervisor
+In another terminal, start the supervisor.
 
 .. code-block:: bash
 
     ./bin/storm supervisor
 
-In the 3rd terminal start the Storm Web UI
+In the 3rd terminal, start the Storm Web UI.
 
 .. code-block:: bash
 
     ./bin/storm ui
 
-Above command will start the Storm UI. You can visit
+The above command will start the Storm UI. You can visit
 
 http://localhost:8080/index.html
 
-to view the storm cluster.
+to view the Storm cluster.
 
 --------------------------
-Run the example word count
+Run the example WordCount
 --------------------------
 
-Now open another termial to run a Storm example word count
+Now open another terminal to run a Storm example WordCount.
 
 .. code-block:: bash
 
@@ -246,7 +246,7 @@ You can view the topology by going to the web browser.
 
 http://localhost:8080/index.html
 
-To kill the topology use the command
+To kill the topology, use the following command:
 
 .. code-block:: bash
 

@@ -26,9 +26,6 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="ADMICloud  documentation" href="index.html" />
-    <link rel="up" title="How to program using data processing tools Hadoop/Storm" href="HowToProgram.html" />
-    <link rel="next" title="K-Means" href="kmeans.html" />
-    <link rel="prev" title="Set Up Hadoop" href="SetUpHadoop.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -238,10 +235,10 @@ jar cf wc.jar WordCount*.class
 </div>
 <div class="section" id="running-the-code">
 <h2>Running the Code<a class="headerlink" href="#running-the-code" title="Permalink to this headline">¶</a></h2>
-<p>Next we will run the example on a local standalone Hadoop node. Before we do so, we need to create a set of input files that will be given to the program.</p>
+<p>Next we will run the example on distributed mode. Before we do so, we need to create a set of input files that will be given to the program.</p>
 <p>First create a directory in which to put all the input files. The program will read all the files that are in this folder. Use the following commands to create the files and directories.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir -p ~/hadoop/admicloudtutorial/wordcount/input
-<span class="nb">cd</span> ~/hadoop/admicloudtutorial/wordcount/input
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir wordcount_input
+<span class="nb">cd</span> wordcount_input
 vim 1.txt
 vim 2.txt
 </pre></div>
@@ -249,9 +246,21 @@ vim 2.txt
 <p>Create two text files 1.txt and 2.txt under the folder containing the following:</p>
 <p>1.txt - Hello World Bye World</p>
 <p>2.txt - Hello Hadoop Goodbye Hadoop</p>
+<p>Create a directory on HDFS and copy these two files into HDFS.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -mkdir wordcount_input
+<span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -put wordcount_input/* wordcount_input
+</pre></div>
+</div>
+<p>You can check the files on HDFS using.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -ls wordcount_input
+</pre></div>
+</div>
 <p>To run the mapreduce job execute the following command from the Hadoop directory:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hadoop jar wc.jar WordCount wordcount_input wordcount_output
+</pre></div>
+</div>
 <p>After the job has completed, execute the following command and check the output that was generated.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>cat ~/hadoop/admicloudtutorial/wordcount/output/part-r-00000
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -cat wordcount_output/*
 Bye 1
 Goodbye     1
 Hadoop      2
@@ -268,12 +277,12 @@ World       2
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper"><ul class="globaltoc"
-><ul class="current">
+><ul>
 <li class="toctree-l1"><a class="reference internal" href="index.html">Cloud Computing Workshop</a></li>
 <li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a></li>
 <li class="toctree-l1"><a class="reference internal" href="members.html">Members</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 </ul>
 
 </ul>
@@ -298,15 +307,7 @@ World       2
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="kmeans.html" title="K-Means"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="SetUpHadoop.html" title="Set Up Hadoop"
-             accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">ADMICloud  documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="tutorials.html" >Tutorials</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="HowToProgram.html" accesskey="U">How to program using data processing tools Hadoop/Storm</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="index.html">ADMICloud  documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
