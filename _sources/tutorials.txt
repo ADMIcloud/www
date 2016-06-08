@@ -21,17 +21,17 @@ Tutorials
    :width: 135px
    :align: middle
 
-+--------------+--+--------------+--+--------------+--+--------------+
-| |logo1|      |  | |logo2|      |  | |logo3|      |  | |logo4|      |
-+--------------+--+--------------+--+--------------+--+--------------+
-| - edx_       |  | - amazon_    |  | - hadoop_    |  | - storm_     |
-|  - video_    |  |              |  | - wordcount_ |  |              |
-|  - module_   |  |              |  | - kmeans_    |  |              |
-+--------------+--+--------------+--+--------------+--+--------------+
++-------------------+--+-------------------+--+-------------------+--+-------------------+
+| |logo1|           |  | |logo2|           |  | |logo3|           |  | |logo4|           |
++-------------------+--+-------------------+--+-------------------+--+-------------------+
+| - edx_            |  | - amazon_         |  | - `setup hadoop`_ |  | - storm_          |
+|  - video_         |  |                   |  | - wordcount_      |  |                   |
+|  - module_        |  |                   |  | - kmeans_         |  |                   |
++-------------------+--+-------------------+--+-------------------+--+-------------------+
  
 .. _edx: http://admicloud.github.io/www/HowToCreateOnlineCourses.html
 .. _amazon: http://admicloud.github.io/www/HowToUseAmazonCloud.html
-.. _hadoop: http://admicloud.github.io/www/SetUpHadoop.html
+.. _`setup hadoop`: http://admicloud.github.io/www/SetUpHadoop.html
 .. _storm: http://admicloud.github.io/www/storm.html
 .. _wordcount: http://admicloud.github.io/www/wordcount.html
 .. _kmeans: http://admicloud.github.io/www/kmeans.html
