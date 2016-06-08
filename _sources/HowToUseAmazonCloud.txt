@@ -9,8 +9,6 @@ Amazon Elastic Compute Cloud (EC2)
    :width: 400
 
 
-The Amazon Elastic Compute Cloud is a central component of the Amazon Web Services, which provides virtualized computing resources on demand. Users can create and manage VM instances, thereby renting computing services based on resource requests. Amazon EC2 also provides storage and higher level platform services such as Amazon S3, EBS, and ELB, among many others.
-
 The Amazon Elastic Compute Cloud (EC2) is public Cloud infrastructure and a central part of the Amazon Web Services offering. Amazon EC2  allows users to run Virtual Machines in an on-demand way, and run their own software and computer applications as if they were owned by the users directly. the EC2 Cloud also enables users to create scalable internet applications and distributed systems with multiple virtual machines.
 
 In EC2, an instance is a running and deployed virtual machine in the cloud. Instances can include any software the user directed, and is uaually based on a pre-existing virtual machine image, saved in EC2. Users can create, stop, and terminate instances at will, and are charged per hour of runtime.
