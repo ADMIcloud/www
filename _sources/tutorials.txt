@@ -1,19 +1,30 @@
 Tutorials
 =========
 
-.. toctree::
-   :maxdepth: 1
+.. |logo1| image:: images/cover/edx.png
+   :height: 150px
+   :width: 270px
+   :align: middle
 
-   HowToCreateOnlineCourses
-   HowToUseAmazonCloud
-   HowToProgram
+.. |logo2| image:: images/cover/amazon.png
+   :height: 150px
+   :width: 270px
+   :align: middle
 
+.. |logo3| image:: images/cover/hadoop.jpg
+   :height: 150px
+   :width: 270px
+   :align: middle
 
-.. csv-table::
- :header: "Treat", "Quantity", "Description"
- :widths: 15, 10, 30
++---------+---------+---------+
+|  Step1  |  Step2  |  Step3  |
++---------+---------+---------+
+| |logo1| | |logo2| | |logo3| |
++---------+---------+---------+
+|    edx_ | amazon_ | hadoop_ |
++---------+---------+---------+
+ 
+.. _edx: http://admicloud.github.io/www/HowToCreateOnlineCourses.html
+.. _amazon: http://admicloud.github.io/www/HowToUseAmazonCloud.html
+.. _hadoop: http://admicloud.github.io/www/HowToProgram.html
 
- "Albatross", 2.99, "On a stick!"
- "Crunchy Frog", 1.49, "If we took the bones out, it wouldn't be
- crunchy, now would it?"
- "Gannet Ripple", 1.99, "On a stick!"
