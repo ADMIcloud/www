@@ -21,13 +21,13 @@ Tutorials
    :width: 135px
    :align: middle
 
-+---------+---+--------------+--------------+---------+
-| |logo1| |   | |logo2|      | |logo3|      | |logo4| |
-+---------+---+--------------+--------------+---------+
-| edx_    |   | - amazon_    | - hadoop_    | storm_  |
-|         |   |              | - wordcount_ |         |
-|         |   |              | - kmeans_    |         |
-+---------+---+--------------+--------------+---------+
++--------------+--------------+--------------+--------------+
+| |logo1|      | |logo2|      | |logo3|      | |logo4|      |
++--------------+--------------+--------------+--------------+
+| - edx_       | - amazon_    | - hadoop_    | - storm_     |
+|              |              | - wordcount_ |              |
+|              |              | - kmeans_    |              |
++--------------+--------------+--------------+--------------+
  
 .. _edx: http://admicloud.github.io/www/HowToCreateOnlineCourses.html
 .. _amazon: http://admicloud.github.io/www/HowToUseAmazonCloud.html
