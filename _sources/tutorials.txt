@@ -27,6 +27,8 @@ Tutorials
 | - edx_            |  | - amazon_         |  | - `setup hadoop`_ |  | - storm_          |
 |  - video_         |  |                   |  | - wordcount_      |  |                   |
 |  - module_        |  |                   |  | - kmeans_         |  |                   |
+|  - import_        |  |                   |  |                   |  |                   |
+|  - course_        |  |                   |  |                   |  |                   |
 +-------------------+--+-------------------+--+-------------------+--+-------------------+
  
 .. _edx: http://admicloud.github.io/www/HowToCreateOnlineCourses.html
@@ -37,3 +39,5 @@ Tutorials
 .. _kmeans: http://admicloud.github.io/www/kmeans.html
 .. _video:
 .. _module: http://admicloud.github.io/www/HowToCreateOnlineCourses.html#use-modules-in-libraries
+.. _import: http://admicloud.github.io/www/HowToCreateOnlineCourses.html#import-export-your-course
+.. _course: http://admicloud.github.io/www/HowToCreateOnlineCourses.html#assemble-your-course-from-libraries
