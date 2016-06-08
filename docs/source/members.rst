@@ -40,15 +40,15 @@ Members
 +----------------------------------------------------------+----------------------------------------------------------+
 
 +----------------------------------------------------------+----------------------------------------------------------+
-| Edward (Clay) Swindell                                   | Saliya Ekanayake                                         |
+|  Saliya Ekanayake                                        | Edward (Clay) Swindell                                   |
 +==========================================================+==========================================================+
-| |bio3|                                                   | |bio4|                                                   |
+| |bio4|                                                   | |bio3|                                                   |
 +----------------------------------------------------------+----------------------------------------------------------+
-| | Edward (Clay) Swindell is Collections Specialist,      | | Saliya Ekanayake is a Ph.D. candidate in Computer      |
-| | Museum of the Albemarle at Elizabeth City State        | | Science at Indiana University, Bloomington. Saliya’s   |
-| | University.                                            | | research interests include High Performance Computing, |
-|                                                          | | Data Analytics, Machine Learning, and Distributed      |
-|                                                          | | Systems.                                               |                         
+| | Saliya Ekanayake is a Ph.D. candidate in Computer      | | Edward (Clay) Swindell is Collections Specialist,      |
+| | Science at Indiana University, Bloomington. Saliya’s   | | Museum of the Albemarle at Elizabeth City State        |
+| | research interests include High Performance Computing, | | University.                                            |
+| | Data Analytics, Machine Learning, and Distributed      | |                                                        |
+| | Systems                                                | |                                                        |
 +----------------------------------------------------------+----------------------------------------------------------+
 
 +----------------------------------------------------------+
