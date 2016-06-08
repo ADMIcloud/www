@@ -2,29 +2,32 @@ Tutorials
 =========
 
 .. |logo1| image:: images/cover/edx.png
-   :height: 150px
-   :width: 270px
+   :height: 75px
+   :width: 135px
    :align: middle
 
 .. |logo2| image:: images/cover/amazon.png
-   :height: 150px
-   :width: 270px
+   :height: 75px
+   :width: 135px
    :align: middle
 
 .. |logo3| image:: images/cover/hadoop.jpg
-   :height: 150px
-   :width: 270px
+   :height: 75px
+   :width: 135px
    :align: middle
 
-+---------+---------+---------+
-|  Step1  |  Step2  |  Step3  |
-+---------+---------+---------+
-| |logo1| | |logo2| | |logo3| |
-+---------+---------+---------+
-|    edx_ | amazon_ | hadoop_ |
-+---------+---------+---------+
+.. |logo4| image:: images/cover/storm.png
+   :height: 75px
+   :width: 135px
+   :align: middle
+
++---------+---------+---------+---------+
+| |logo1| | |logo2| | |logo3| | |logo4| |
++---------+---------+---------+---------+
+|    edx_ | amazon_ | hadoop_ |  storm_ |
++---------+---------+---------+---------+
  
 .. _edx: http://admicloud.github.io/www/HowToCreateOnlineCourses.html
 .. _amazon: http://admicloud.github.io/www/HowToUseAmazonCloud.html
 .. _hadoop: http://admicloud.github.io/www/HowToProgram.html
-
+.. _storm: http://admicloud.github.io/www/storm.html
