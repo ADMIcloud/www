@@ -28,7 +28,7 @@
     <link rel="top" title="ADMICloud  documentation" href="index.html" />
     <link rel="up" title="How to program using data processing tools Hadoop/Storm" href="HowToProgram.html" />
     <link rel="next" title="K-Means" href="kmeans.html" />
-    <link rel="prev" title="Setup Hadoop" href="SetUpHadoop.html" />
+    <link rel="prev" title="Set Up Hadoop" href="SetUpHadoop.html" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Neuton&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nobile:regular,italic,bold,bolditalic&amp;subset=latin" type="text/css" media="screen" charset="utf-8" />
 <!--[if lte IE 6]>
@@ -48,7 +48,7 @@
             
   <div class="section" id="word-count">
 <h1>Word Count<a class="headerlink" href="#word-count" title="Permalink to this headline">¶</a></h1>
-<p>Word Count is a simple and easy to understand algorithm which can be implemented as a mapreduce application easily. Given a set of text documents the program counts the number of occurrences of each word. The algorithm consists of three main sections.</p>
+<p>Word Count is a simple and easy to understand algorithm which can be easily implemented as a mapreduce application. Given a set of text documents, the program counts the number of occurrences of each word. The algorithm consists of three main sections.</p>
 <blockquote>
 <div><ol class="arabic simple">
 <li>Main Program</li>
@@ -56,7 +56,7 @@
 <li>Reducer</li>
 </ol>
 </div></blockquote>
-<p>An example of the Hadoop Word Count is as follows:</p>
+<p>An example of Hadoop Word Count is as follows:</p>
 <a class="reference internal image-reference" href="_images/wordcount.png"><img alt="word count show case" class="align-center" src="_images/wordcount.png" style="width: 520px; height: 300px;" /></a>
 <p>Mapper:</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">map</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
@@ -76,8 +76,8 @@
 <p>The reduce function sums together all counts emitted for a particular word.</p>
 <div class="section" id="writing-the-mapper-class">
 <h2>Writing the Mapper Class<a class="headerlink" href="#writing-the-mapper-class" title="Permalink to this headline">¶</a></h2>
-<p>The WordCountMapper class is created by extending the Mapper class and the map function is implemented by overriding the map method in the Mapper class. The mapper functions takes a key-value pair as an input and outputs a key-values pair as an output ( The output is given through the context object ). The key value pair that the map function takes as an input and the key value pair that is given as an output need not be of the same type.</p>
-<p>For instance in the WordCountMapper the input to the map method is a key-value pair where the key is the line number and the value is the line of text in the corresponding line (line_number, line_text). And outputs (word,1) for each word it reads in the line.</p>
+<p>The WordCountMapper class is created by extending the Mapper class and the map function is implemented by overriding the map method in the Mapper class. The mapper function takes a key-value pair as an input and outputs a key-value pair as an output (the output is given through the context object). The key value pair that the map function takes as an input and the key value pair given as an output need not be the same type.</p>
+<p>For instance, in the WordCountMapper the input to the map method is a key-value pair where the key is the line number and the value is the line of text in the corresponding line (line_number, line_text). It then outputs (word,1) for each word it reads in the line.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">WordCountMapper</span> <span class="kd">extends</span> <span class="n">Mapper</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">IntWritable</span><span class="o">&gt;</span> <span class="o">{</span>
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">IntWritable</span> <span class="n">one</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntWritable</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
@@ -96,7 +96,7 @@
 </div>
 <div class="section" id="writing-the-reducer-class">
 <h2>Writing the Reducer Class<a class="headerlink" href="#writing-the-reducer-class" title="Permalink to this headline">¶</a></h2>
-<p>The WordCountReducer class is created by extending the org.apache.hadoop.mapreduce.Reducer class and the reduce method is implemented by overriding the reduce method from the Reducer class. The reduce function collects all the intermediate key-value pairs &lt;word,1&gt;  generated by the multiple map functions and will sum up all the occurrences of each word and output a key-value pair for each word in the text documents as &lt;word, total_occurrences&gt;. The detailed implementation of the WordCountReducer is below</p>
+<p>The WordCountReducer class is created by extending the org.apache.hadoop.mapreduce.Reducer class; the reduce method is implemented by overriding the reduce method from the Reducer class. The reduce function collects all the intermediate key-value pairs &lt;word,1&gt;  generated by the multiple map functions. It will then sum up all the occurrences of each word and output a key-value pair for each word in the text document as &lt;word, total_occurrences&gt;. A detailed implementation of the WordCountReducer is shown below.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">WordCountReducer</span> <span class="kd">extends</span> <span class="n">Reducer</span><span class="o">&lt;</span><span class="n">Text</span><span class="o">,</span> <span class="n">IntWritable</span><span class="o">,</span> <span class="n">Text</span><span class="o">,</span> <span class="n">IntWritable</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="n">IntWritable</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">IntWritable</span><span class="o">();</span>
 
@@ -121,7 +121,7 @@
 <li>Job Name : name of this Job</li>
 <li>Executable (Jar) Class: the main executable class. For here, WordCount.</li>
 <li>Mapper Class: class which overrides the &#8220;map&#8221; function. For here, WordCountMapper.</li>
-<li>Reducer: class which override the &#8220;reduce&#8221; function. For here , WordCountReducer.</li>
+<li>Reducer: class which overrides the &#8220;reduce&#8221; function. For here , WordCountReducer.</li>
 <li>Output Key: type of output key. For here, Text.</li>
 <li>Output Value: type of output value. For here, IntWritable.</li>
 <li>File Input Path</li>
@@ -146,7 +146,7 @@
 </div>
 <div class="section" id="complete-code">
 <h2>Complete Code<a class="headerlink" href="#complete-code" title="Permalink to this headline">¶</a></h2>
-<p>The complete code of the WordCount example is below</p>
+<p>The complete code of the WordCount example is visible below.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.StringTokenizer</span><span class="o">;</span>
 
@@ -211,12 +211,12 @@
 </div>
 <div class="section" id="compiling-the-code">
 <h2>Compiling the Code<a class="headerlink" href="#compiling-the-code" title="Permalink to this headline">¶</a></h2>
-<p>In order to compile the code we need to create a .java file that contains our code. execute the following commands and paste the code listed above into the file created by the vim command</p>
+<p>In order to compile the code we need to create a .java file that contains our code. Execute the following commands and paste the code listed above into the file created by the vim command.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/software/hadoop-2.7.2
 vim WordCount.java
 </pre></div>
 </div>
-<p>They are several ways to generate an jar file from WordCount.java. The following is a very simple and straightforward method that can be used.  Move to the hadoop directory and execute the following commands. You need to have WordCount.java file also under the hadoop directory</p>
+<p>They are several ways to generate a jar file from WordCount.java. The following is a very simple and straightforward method that can be used.  Move to the Hadoop directory and execute the following commands. You need to have the WordCount.java file also under the Hadoop directory.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/software/hadoop-2.7.2
 <span class="nb">export</span> <span class="nv">HADOOP_CLASSPATH</span><span class="o">=</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/lib/tools.jar
 ./bin/hadoop com.sun.tools.javac.Main WordCount.java
@@ -226,7 +226,7 @@ jar cf wc.jar WordCount*.class
 <p>This will create a jar file that contains the compiled classes needed to run the program on Hadoop.</p>
 <div class="section" id="optional">
 <h3>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h3>
-<p>Another more cleaner method will be to create a MVN project for the WordCount example and simply do a “mvn clean install” which will produce a jar file. You will need to add the following dependency in the pom.xml</p>
+<p>Another cleaner method would be to create a MVN project for the WordCount example and simply do a “mvn clean install” which will produce a jar file. You will need to add the following dependency in the pom.xml.</p>
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>org.apache.hadoop<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>hadoop-core<span class="nt">&lt;/artifactId&gt;</span>
@@ -237,20 +237,20 @@ jar cf wc.jar WordCount*.class
 </div>
 </div>
 <div class="section" id="running-the-code">
-<h2>Running the Code.<a class="headerlink" href="#running-the-code" title="Permalink to this headline">¶</a></h2>
-<p>Next we will run the example on a local standalone Hadoop node. Before we run the example we need to create a set of input files that will be given to the program.</p>
-<p>First create a directory to put all the input files in. The program will read all the files that are in this folder. Use the following commands to create the files and directories</p>
+<h2>Running the Code<a class="headerlink" href="#running-the-code" title="Permalink to this headline">¶</a></h2>
+<p>Next we will run the example on a local standalone Hadoop node. Before we do so, we need to create a set of input files that will be given to the program.</p>
+<p>First create a directory in which to put all the input files. The program will read all the files that are in this folder. Use the following commands to create the files and directories.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir -p ~/hadoop/admicloudtutorial/wordcount/input
 <span class="nb">cd</span> ~/hadoop/admicloudtutorial/wordcount/input
 vim 1.txt
 vim 2.txt
 </pre></div>
 </div>
-<p>Create two text files 1.txt and 2.txt under the folder containing the following</p>
+<p>Create two text files 1.txt and 2.txt under the folder containing the following:</p>
 <p>1.txt - Hello World Bye World</p>
 <p>2.txt - Hello Hadoop Goodbye Hadoop</p>
-<p>To run the mapreduce job execute the following command from the hadoop directory</p>
-<p>After the job has completed execute the following command and check the output that was generated.</p>
+<p>To run the mapreduce job execute the following command from the Hadoop directory:</p>
+<p>After the job has completed, execute the following command and check the output that was generated.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>cat ~/hadoop/admicloudtutorial/wordcount/output/part-r-00000
 Bye 1
 Goodbye     1
@@ -302,7 +302,7 @@ World       2
           <a href="kmeans.html" title="K-Means"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="SetUpHadoop.html" title="Setup Hadoop"
+          <a href="SetUpHadoop.html" title="Set Up Hadoop"
              accesskey="P">previous</a> |</li>
         <li class="nav-item nav-item-0"><a href="index.html">ADMICloud  documentation</a> &raquo;</li>
           <li class="nav-item nav-item-1"><a href="tutorials.html" >Tutorials</a> &raquo;</li>

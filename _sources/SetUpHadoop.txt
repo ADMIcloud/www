@@ -1,4 +1,4 @@
-Setup Hadoop
+Set Up Hadoop
 ===============
 
 
@@ -11,14 +11,14 @@ Hadoop
 
 Hadoop is an open source framework for distributed storage and processing of large datasets on a commodity cluster. Hadoop utilizes the Hadoop Distributed File System (HDFS) for data storage and the MapReduce model for computational processing. Hadoop 2.0 also includes the YARN resource management platform which manages multiple nodes within the cluster and is responsible for task scheduling.
 
-This section describes how to setup hadoop on one instance.
+This section describes how to set up Hadoop on one instance.
 
 Preparation
 ------------------
 1. Java
 
    Download Oracle JDK 8 from http://www.oracle.com/technetwork/java/javase/downloads/index.html
-   Extract the archive, use the following steps to perform this
+   Extract the archive using the following steps:
 
 .. code-block:: bash
 
@@ -29,7 +29,7 @@ Preparation
     tar xzf jdk-8u91-linux-x64.tar.gz
 
 
-Set the following environment variables. (You can set the variables in the .bashrc file). You can use the following command to open and edit the .bashrc file. We also need to install vim editor to edit the files
+Set the following environment variables (you can set the variables in the .bashrc file). You can use the following command to open and edit the .bashrc file. We also need to install vim editor to edit the files.
 
 
 .. code-block:: bash
@@ -37,7 +37,7 @@ Set the following environment variables. (You can set the variables in the .bash
     sudo apt-get install vim
     vim ~/.bashrc
 
-Add the the following lines to the end of the
+Add the the following lines to the end of the code:
 
 .. code-block:: bash
 
@@ -45,7 +45,7 @@ Add the the following lines to the end of the
     PATH=$JAVA_HOME/bin:$PATH
     export JAVA_HOME PATH
 
-And run the following command in order to make sure the changes are applied. You should see a output simillar to the one given below after running the code
+Now run the following command in order to make sure the changes are applied. You should see an output similar to the one given below after running the code.
 
 .. code-block:: bash
 
@@ -60,14 +60,14 @@ And run the following command in order to make sure the changes are applied. You
 
 2.  SSH and Rsync
 
-    Install SSH and Rsync is not already installed in the environment.
+    Install SSH and Rsync are not already installed in the environment. Use these commands to add them.
 
 .. code-block:: bash
 
     sudo apt-get install ssh
     sudo apt-get install rsync
 
-3. Download and extract latest Hadoop binary into your machine. The latest hadoop binary files are available at http://hadoop.apache.org/releases.html. The following commands will download and extract Hadoop version 2.7.2.
+3. Download and extract the latest Hadoop binary into your machine. These are available at http://hadoop.apache.org/releases.html. The following commands will download and extract Hadoop version 2.7.2.
 
 .. code-block:: bash
 
@@ -76,23 +76,23 @@ And run the following command in order to make sure the changes are applied. You
     tar -xzvf hadoop-2.7.2.tar.gz
 
 
-4. Make sure everything was done properly. Execute the following command from the hadoop folder that we just extracted
+4. Make sure everything was done properly, then execute the following command from the Hadoop folder that we just extracted
 
 .. code-block:: bash
 
     ./bin/hadoop
 
 
-Setup passphraseless ssh
+Set up passphrase-less ssh
 ---------------------------
 
-Firstly, check with the following command
+First, check your code with the following command:
 
 .. code-block:: bash
 
     $ ssh localhost
 
-If you cannot ssh to the localhost without a passphrase, use the following commands to setup passphraseless ssh:
+If you cannot ssh to the localhost without a passphrase, use the following commands to set up passphrase-less ssh:
 
 .. code-block:: bash
 
@@ -105,9 +105,9 @@ If you cannot ssh to the localhost without a passphrase, use the following comma
 Configuration
 ---------------------------
 
-Modify the following files, replace $HADOOP_HOME with your own hadoop home path.
+Modify the following files, replacing $HADOOP_HOME with your own Hadoop home path.
 
-In $HADOOP_HOME/etc/hadoop/hadoop-env.sh, replace ${JAVA_HOME} with your own Java home path. If it's ~/software/jdk1.8.0_91, then
+In $HADOOP_HOME/etc/hadoop/hadoop-env.sh, replace ${JAVA_HOME} with your own Java home path. If it is ~/software/jdk1.8.0_91, then add the following:
 
 .. code-block:: bash
 
@@ -176,7 +176,7 @@ $HADOOP_HOME/etc/hadoop/yarn-site.xml
 Start Daemons
 ---------------------------
 
-1. Format the file system
+1. Format the file system next.
 
 .. code-block:: bash
 
@@ -200,9 +200,9 @@ If you can see information like this, the format process should be successful.
     $ $HADOOP_HOME/sbin/start-dfs.sh
 
 
-The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs)
+The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs).
 
-3. Check if the daemons are started successfully
+3. Check if the daemons started successfully.
 
 .. code-block:: bash
 
@@ -213,7 +213,7 @@ The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs)
     xxxxx Jps
 
 
-4. Browse the web interface for the NameNode. By default it's at: http://localhost:50070
+4. Browse the web interface for the NameNode. By default this is at http://localhost:50070
 
 5. Start ResourceManager daemon and NodeManager Daemon
 
@@ -222,7 +222,7 @@ The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs)
     $ $HADOOP_HOME/sbin/start-yarn.sh
 
 
-6. Check if the daemons are started sucessfully:
+6. Verify the daemons started sucessfully:
 
 .. code-block:: bash
 
@@ -235,12 +235,12 @@ The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs)
     xxxxx ResourceManager
 
 
-7. Browse the web interface for the ResourceManager. By default it's at http://localhost:8088
+7. Browse the web interface for the ResourceManager. By default this should be http://localhost:8088
 
 Example
 ---------------------------
 
-1. Make the Hadoop Didtributed File System (HDFS) directories
+1. Make the Hadoop Distributed File System (HDFS) directories.
 
 .. code-block:: bash
 
@@ -248,28 +248,28 @@ Example
     $ $HADOOP_HOME/bin/hdfs dfs -mkdir input
 
 
-2. Copy the input files into HDFS. In this example, we use files in $HADOOP_HOME/etc/hadoop/ directory as input files
+2. Copy the input files into HDFS. In this example, we use files in $HADOOP_HOME/etc/hadoop/ directory as input files.
 
 .. code-block:: bash
 
     $ $HADOOP_HOME/bin/hdfs dfs -put $HADOOP_HOME/etc/hadoop/* input
 
 
-3. Run the "grep" example provided
+3. Run the "grep" example provided.
 
 .. code-block:: bash
 
     $ $HADOOP_HOME/bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar grep input output 'hadoop'
 
 
-4. View the output files on HDFS
+4. View the output files on HDFS.
 
 .. code-block:: bash
 
     $ $HADOOP_HOME/bin/hdfs dfs -cat output/*
 
 
-Or copy the output files to the local filesystem
+Or copy the output files to the local filesystem.
 
 .. code-block:: bash
 
@@ -277,9 +277,9 @@ Or copy the output files to the local filesystem
     $ cat output/*
 
 
-Stop daemons
+Stop daemons.
 ---------------------------
-If you are done, you can stop all daemons by
+If you are done, you can stop all daemons by using this code:
 
 .. code-block:: bash
 

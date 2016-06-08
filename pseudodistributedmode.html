@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Pseudo-distributed Mode &mdash; ADMICloud 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="ADMICloud 1.0 documentation" href="index.html" />
+    <link rel="up" title="Prerequisites" href="prerequisites.html" />
+    <link rel="next" title="Distributed Mode" href="distributedmode.html" />
+    <link rel="prev" title="Local Mode" href="localmode.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          ADMICloud</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-one-friday-june-10">Day one (Friday June 10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-two-saturday-june-11">Day Two (Saturday June 11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-three-sunday-june-12">Day Three (Sunday June 12)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="members.html">Members</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="members.html#judy-qiu">Judy Qiu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#linda-hayden">Linda Hayden</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#edward-clay-swindell">Edward (Clay) Swindell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#saliya-ekanayake">Saliya Ekanayake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#andrew-j-younge">Andrew J. Younge</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="prerequisites.html">Prerequisites</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="localmode.html">Local Mode</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Pseudo-distributed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributedmode.html">Distributed Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-1-wordcount-on-hadoop">Ex 1: Wordcount on Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-2-k-means-clustering-on-hadoop">Ex 2: K-Means clustering on Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-3-wordcount-on-storm">Ex 3: WordCount on Storm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="software.html#hadoop">Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#apache-storm">Apache Storm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#amazon-elastic-compute-cloud-ec2">Amazon Elastic Compute Cloud (EC2)</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Pseudo-distributed Mode</a><ul>
+<li><a class="reference internal" href="#setup-passphraseless-ssh">Setup passphraseless ssh</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#start-daemons">Start Daemons</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+<li><a class="reference internal" href="#stop-daemons">Stop daemons</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="localmode.html" title="Previous Chapter: Local Mode"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Local Mode</span>
+    </a>
+  </li>
+  <li>
+    <a href="distributedmode.html" title="Next Chapter: Distributed Mode"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Distributed Mode &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/pseudodistributedmode.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="globaltoc"
+><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-one-friday-june-10">Day one (Friday June 10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-two-saturday-june-11">Day Two (Saturday June 11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-three-sunday-june-12">Day Three (Sunday June 12)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="members.html">Members</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="members.html#judy-qiu">Judy Qiu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#linda-hayden">Linda Hayden</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#edward-clay-swindell">Edward (Clay) Swindell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#saliya-ekanayake">Saliya Ekanayake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#andrew-j-younge">Andrew J. Younge</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="prerequisites.html">Prerequisites</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="localmode.html">Local Mode</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Pseudo-distributed Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="distributedmode.html">Distributed Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-1-wordcount-on-hadoop">Ex 1: Wordcount on Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-2-k-means-clustering-on-hadoop">Ex 2: K-Means clustering on Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-3-wordcount-on-storm">Ex 3: WordCount on Storm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="software.html#hadoop">Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#apache-storm">Apache Storm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#amazon-elastic-compute-cloud-ec2">Amazon Elastic Compute Cloud (EC2)</a></li>
+</ul>
+</li>
+</ul>
+
+</ul>
+
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="pseudo-distributed-mode">
+<h1>Pseudo-distributed Mode<a class="headerlink" href="#pseudo-distributed-mode" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="setup-passphraseless-ssh">
+<h2>Setup passphraseless ssh<a class="headerlink" href="#setup-passphraseless-ssh" title="Permalink to this headline">¶</a></h2>
+<p>Firstly, check with the following command</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ssh localhost
+</pre></div>
+</div>
+<p>If you cannot ssh to the localhost without a passphrase, use the following commands to setup passphraseless ssh:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/.ssh
+$ ssh-keygen -t rsa
+<span class="o">(</span>hit enter to all the options<span class="o">)</span>
+$ cat id_rsa.pub &gt;&gt; authorized_keys
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Modify the following files, replace $HADOOP_HOME with your own hadoop home path.</p>
+<p>In $HADOOP_HOME/etc/hadoop/hadoop-env.sh, replace ${JAVA_HOME} with your own Java home path. If it&#8217;s ~/software/jdk1.8.0_91, then</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># The java implementation to use.</span>
+<span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>~/software/jdk1.8.0_91#The java implementation to use.
+</pre></div>
+</div>
+<p>$HADOOP_HOME/etc/hadoop/core-site.xml</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>fs.default.name<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>hdfs://localhost:9010<span class="nt">&lt;/value&gt;</span>
+     <span class="nt">&lt;/property&gt;</span>
+
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>hadoop.tmp.dir<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>$HADOOP_HOME/tmp<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;description&gt;</span>A base for other temporary directories.<span class="nt">&lt;/description&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
+</div>
+<p>$HADOOP_HOME/etc/hadoop/hdfs-site.xml</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.replication<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
+</div>
+<p>$HADOOP_HOME/etc/hadoop/mapred-site.xml</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>mapreduce.framework.name<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>yarn<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
+</div>
+<p>$HADOOP_HOME/etc/hadoop/yarn-site.xml</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>yarn.resourcemanager.hostname<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>yarn.nodemanager.aux-services<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>mapreduce_shuffle<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="start-daemons">
+<h2>Start Daemons<a class="headerlink" href="#start-daemons" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Format the file system</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs namenode -format
+</pre></div>
+</div>
+<p>If you can see information like this, the format process should be successful.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>xx/xx/xx xx:xx:xx INFO util.ExitUtil: Exiting with status 0
+xx/xx/xx xx:xx:xx INFO namenode.NameNode: SHUTDOWN_MSG:
+/************************************************************
+SHUTDOWN_MSG: Shutting down NameNode at xxx.xxx.xxx.xxx
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Launch NameNode daemon and DataNode daemon</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/sbin/start-dfs.sh
+</pre></div>
+</div>
+<p>The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs)</p>
+<ol class="arabic simple" start="3">
+<li>Check if the daemons are started successfully</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ jps
+xxxxx NameNode
+xxxxx SecondaryNameNode
+xxxxx DataNode
+xxxxx Jps
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>Browse the web interface for the NameNode. By default it&#8217;s at: <a class="reference external" href="http://localhost:50070">http://localhost:50070</a></li>
+<li>Start ResourceManager daemon and NodeManager Daemon</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/sbin/start-yarn.sh
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li>Check if the daemons are started sucessfully:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ jps
+xxxxx NameNode
+xxxxx SecondaryNameNode
+xxxxx DataNode
+xxxxx NodeManager
+xxxxx Jps
+xxxxx ResourceManager
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li>Browse the web interface for the ResourceManager. By default it&#8217;s at <a class="reference external" href="http://localhost:8088">http://localhost:8088</a></li>
+</ol>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Make the Hadoop Didtributed File System (HDFS) directories</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -mkdir -p .
+$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -mkdir input
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Copy the input files into HDFS. In this example, we use files in $HADOOP_HOME/etc/hadoop/ directory as input files</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -put <span class="nv">$HADOOP_HOME</span>/etc/hadoop/* input
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Run the &#8220;grep&#8221; example provided</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar grep input output <span class="s1">&#39;hadoop&#39;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>View the output files on HDFS</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -cat output/*
+</pre></div>
+</div>
+<p>Or copy the output files to the local filesystem</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -get output output
+$ cat output/*
+</pre></div>
+</div>
+</div>
+<div class="section" id="stop-daemons">
+<h2>Stop daemons<a class="headerlink" href="#stop-daemons" title="Permalink to this headline">¶</a></h2>
+<p>If you are done, you can stop all daemons by</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/sbin/stop-dfs.sh
+$ <span class="nv">$HADOOP_HOME</span>/sbin/stop-yarn.sh
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, DSC.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

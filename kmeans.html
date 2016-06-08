@@ -48,8 +48,39 @@
             
   <div class="section" id="k-means">
 <h1>K-Means<a class="headerlink" href="#k-means" title="Permalink to this headline">¶</a></h1>
-<p>This section describes how to implement K-means algorithm using Hadoop.</p>
+<p>This section describes how to implement the K-means algorithm using Hadoop.</p>
 <a class="reference internal image-reference" href="_images/hadoopkmeans.png"><img alt="hadoop kmeans" class="align-center" src="_images/hadoopkmeans.png" style="width: 520px; height: 300px;" /></a>
+<div class="section" id="understanding-k-means">
+<h2>Understanding K-Means<a class="headerlink" href="#understanding-k-means" title="Permalink to this headline">¶</a></h2>
+<p>K-Means is a very powerful and easily understood clustering algorithm. The aim of the algorithm is to divide a given set of points into &#8220;K&#8221; partitions. &#8220;K&#8221; needs to be specified
+by the user. In order to understand K-Means, first you need to understand the proceeding concepts and their meaning.</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>Centroids</dt>
+<dd><p class="first last">Centroids can be defined as the center of each cluster. If we are performing clustering with k=3, we will have 3 centroids. To perform K-Means clustering, the users needs to
+provide the initial set of centroids.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Distance</dt>
+<dd><p class="first last">In order to group data points as close together or as far-apart we need to define a distance between two given data points. In K-Means clustering distance is normally calculated as the Euclidean
+Distance between two data points.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>The K-Means algorithm simply repeats the following set of steps until there is no change in the partition assignments, in that it has clarified which data point is
+assigned to which partition.</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Choose K points as the initial set of centroids.</li>
+<li>Assign each data point in the data set to the closest centroid (this is done by calculating the distance between the data point and each centroid).</li>
+<li>Calculate the new centroids based on the clusters that were generated in step 2. Normally this is done by calculating the mean of each cluster.</li>
+<li>Repeat steps 2 and 3 until data points do not change cluster assignments, meaning their centroids are set.</li>
+</ol>
+</div></blockquote>
+</div>
 <div class="section" id="pseudo-code">
 <h2>Pseudo Code<a class="headerlink" href="#pseudo-code" title="Permalink to this headline">¶</a></h2>
 <p>Denote:</p>
@@ -104,8 +135,8 @@ output newCentroid to HDFS
 </div>
 <div class="section" id="compile-the-code">
 <h2>Compile the Code<a class="headerlink" href="#compile-the-code" title="Permalink to this headline">¶</a></h2>
-<p>The code is available at <a class="reference external" href="https://github.com/ADMIcloud/examples">https://github.com/ADMIcloud/examples</a>. Download the code by using git clone command or by clicking the Download Zip button. The go to the HadoopKmeans directory and compile the code.
-In the build.xml, change &#8220;PATH-TO-YOUR-HADOOP-HOME&#8221; to your Hadoop Home directory.</p>
+<p>The code is available at <a class="reference external" href="https://github.com/ADMIcloud/examples">https://github.com/ADMIcloud/examples</a>. Download the code by using the git clone command or by clicking the Download Zip button. Then go to the HadoopKmeans directory and compile the code.
+In build.xml, change &#8220;PATH-TO-YOUR-HADOOP-HOME&#8221; to your Hadoop Home directory.</p>
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;project</span> <span class="na">name=</span><span class="s">&quot;hadoopCompile&quot;</span> <span class="na">default=</span><span class="s">&quot;jar&quot;</span> <span class="na">basedir=</span><span class="s">&quot;.&quot;</span><span class="nt">&gt;</span>
     <span class="nt">&lt;target</span> <span class="na">name=</span><span class="s">&quot;init&quot;</span><span class="nt">&gt;</span>
             <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;sourceDir&quot;</span> <span class="na">value=</span><span class="s">&quot;.&quot;</span><span class="nt">/&gt;</span>
@@ -144,15 +175,15 @@ $ ant
 </div>
 <div class="section" id="run-the-code">
 <h2>Run the Code<a class="headerlink" href="#run-the-code" title="Permalink to this headline">¶</a></h2>
-<p>The usage is</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ hadoop jar jar/hadoopkmeans.jar &lt;num Of Data Points&gt; &lt;size of a vector&gt; &lt;num of Centroids&gt; &lt;number of map tasks&gt; &lt;number of iteration&gt;
+<p>The usage is:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ hadoop jar jar/hadoopkmeans.jar &lt;num Of Data Points&gt; &lt;size of a vector&gt; &lt;num of Centroids&gt; &lt;number of map tasks&gt; &lt;number of iterations&gt;
 </pre></div>
 </div>
 <p>For example</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ hadoop jar jar/hadoopkmeans.jar <span class="m">100</span> <span class="m">3</span> <span class="m">10</span> <span class="m">2</span> 3
 </pre></div>
 </div>
-<p>It wil firstly generate 100 data points, each one is a 3-D vector. The data will be saved to HDFS. It then generate 10 initial centroids and write them to HDFS. For every iteration, it loads centroids and reads key-value pairs to do computation. And then write new centroids back to HDFS.</p>
+<p>Hadoop K-means wil firstly generate 100 data points, each a 3-D vector. The data will be saved to HDFS. It then generates 10 initial centroids and writes them to HDFS. For every iteration, K-means loads centroids and reads key-value pairs to do computation, then writes new centroids back to HDFS.</p>
 </div>
 <div class="section" id="view-the-results">
 <h2>View the Results<a class="headerlink" href="#view-the-results" title="Permalink to this headline">¶</a></h2>
