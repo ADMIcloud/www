@@ -25,6 +25,7 @@ Tutorials
 | |logo1|            |  | |logo2|           |  | |logo3|           |  | |logo4|           |
 +--------------------+--+-------------------+--+-------------------+--+-------------------+
 | | edx_             |  | - amazon_         |  | - `setup hadoop`_ |  | - storm_          |
+|                    |  |                   |  |                   |  |                   |
 |   - video_         |  |                   |  | - wordcount_      |  |                   |
 |   - module_        |  |                   |  | - kmeans_         |  |                   |
 |   - import_        |  |                   |  |                   |  |                   |
