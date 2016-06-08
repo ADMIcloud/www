@@ -25,7 +25,6 @@ Tutorials
 | |logo1|      |  | |logo2|      |  | |logo3|      |  | |logo4|      |
 +--------------+--+--------------+--+--------------+--+--------------+
 | - edx_       |  | - amazon_    |  | - hadoop_    |  | - storm_     |
-|              |  |              |  |              |  |              |
 |  - video_    |  |              |  | - wordcount_ |  |              |
 |              |  |              |  | - kmeans_    |  |              |
 +--------------+--+--------------+--+--------------+--+--------------+
@@ -36,4 +35,4 @@ Tutorials
 .. _storm: http://admicloud.github.io/www/storm.html
 .. _wordcount: http://admicloud.github.io/www/wordcount.html
 .. _kmeans: http://admicloud.github.io/www/kmeans.html
-.. _video: 
+.. _video:
