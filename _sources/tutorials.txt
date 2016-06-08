@@ -10,6 +10,7 @@ Tutorials
    :height: 75px
    :width: 135px
    :align: middle
+   :link: http://example.com/
 
 .. |logo3| image:: images/cover/hadoop.jpg
    :height: 75px
@@ -24,11 +25,9 @@ Tutorials
 +--------------------+--+-------------------+--+-------------------+--+-------------------+
 | |logo1|            |  | |logo2|           |  | |logo3|           |  | |logo4|           |
 +--------------------+--+-------------------+--+-------------------+--+-------------------+
-| | edx_             |  | - amazon_         |  | - `setup hadoop`_ |  | - storm_          |
-|                    |  |                   |  | - wordcount_      |  |                   |
-| - video_           |  |                   |  | - kmeans_         |  |                   |
-| - module_          |  |                   |  |                   |  |                   |
-| - import_          |  |                   |  |                   |  |                   |
+| - video_           |  |                   |  | - `setup hadoop`_ |  |                   |
+| - module_          |  |                   |  | - wordcount_      |  |                   |
+| - import_          |  |                   |  | - kmeans_         |  |                   |
 | - course_          |  |                   |  |                   |  |                   |
 +--------------------+--+-------------------+--+-------------------+--+-------------------+
  
