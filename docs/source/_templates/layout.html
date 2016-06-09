@@ -1,6 +1,6 @@
 {# Import the theme's layout. #}
 {% extends "!layout.html" %}
-
+{% set css_files = css_files + ["_static/basic.css"] %}
 {# Add some extra stuff before and use existing with 'super()' call. #}
 {% block relbar1 %}
     <p style="text-align:center;"><img src="_static/images/cover.jpg"></p>
