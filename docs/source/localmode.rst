@@ -1,5 +1,5 @@
 Local Mode
-=============
+==========
 In order to setup Hadoop properly in your local machine you need to first satisfy the following prerequisites in your environment.
 
 1. Java

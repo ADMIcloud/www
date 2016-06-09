@@ -1,9 +1,9 @@
 Set Up Hadoop
-===============
+=============
 
 
 Hadoop
---------
+------
 
 .. figure:: http://hadoop.apache.org/images/hadoop-logo.jpg
    :alt: Hadoop
@@ -14,7 +14,7 @@ Hadoop is an open source framework for distributed storage and processing of lar
 This section describes how to set up Hadoop on one instance.
 
 Preparation
-------------------
+-----------
 1. Java
 
    Download Oracle JDK 8 from http://www.oracle.com/technetwork/java/javase/downloads/index.html
@@ -54,9 +54,9 @@ Now run the following command in order to make sure the changes are applied. You
 
 .. code-block:: bash
 
-    java version "1.8.0_66"
-    Java(TM) SE Runtime Environment (build 1.8.0_66-b17)
-    Java HotSpot(TM) 64-Bit Server VM (build 25.66-b17, mixed mode)
+    java version "1.8.0_91"
+    Java(TM) SE Runtime Environment (build 1.8.0_91-b14)
+    Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)
 
 2.  SSH and Rsync
 
