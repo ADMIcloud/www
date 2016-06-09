@@ -51,6 +51,8 @@ Now run the following command in order to make sure the changes are applied. You
     source ~/.bashrc
     java -version
 
+You should see the following output.
+
 .. code-block:: bash
 
     java version "1.8.0_91"
@@ -82,6 +84,30 @@ Now run the following command in order to make sure the changes are applied. You
     cd ~/software/hadoop-2.7.2
     ./bin/hadoop
 
+You should see the following output.
+
+.. code-block:: bash
+
+    Usage: hadoop [--config confdir] [COMMAND | CLASSNAME]
+      CLASSNAME            run the class named CLASSNAME
+     or
+      where COMMAND is one of:
+      fs                   run a generic filesystem user client
+      version              print the version
+      jar <jar>            run a jar file
+                           note: please use "yarn jar" to launch
+                                 YARN applications, not this command.
+      checknative [-a|-h]  check native hadoop and compression libraries availability
+      distcp <srcurl> <desturl> copy file or directories recursively
+      archive -archiveName NAME -p <parent path> <src>* <dest> create a hadoop archive
+      classpath            prints the class path needed to get the
+      credential           interact with credential providers
+                           Hadoop jar and the required libraries
+      daemonlog            get/set the log level for each daemon
+      trace                view and modify Hadoop tracing settings
+
+    Most commands print help when invoked w/o parameters.
+
 
 Set up passphrase-less ssh
 --------------------------
@@ -90,16 +116,26 @@ First, check your code with the following command:
 
 .. code-block:: bash
 
-    $ ssh localhost
+    ssh localhost
 
 If you cannot ssh to the localhost without a passphrase, use the following commands to set up passphrase-less ssh:
 
 .. code-block:: bash
 
-    $ cd ~/.ssh
-    $ ssh-keygen -t rsa
+    cd ~/.ssh
+    ssh-keygen -t rsa
     (hit enter to all the options)
-    $ cat id_rsa.pub >> authorized_keys
+    cat id_rsa.pub >> authorized_keys
+
+Then try to SSH again and if that's successful hit exit to terminate that SSH connection
+
+.. code-block:: bash
+
+    ssh localhost
+    exit
+
+
+
 
 
 Configuration
@@ -180,7 +216,7 @@ Start Daemons
 
 .. code-block:: bash
 
-    $ $HADOOP_HOME/bin/hdfs namenode -format
+    $HADOOP_HOME/bin/hdfs namenode -format
 
 
 If you can see information like this, the format process should be successful.
@@ -197,7 +233,7 @@ If you can see information like this, the format process should be successful.
 
 .. code-block:: bash
 
-    $ $HADOOP_HOME/sbin/start-dfs.sh
+    $HADOOP_HOME/sbin/start-dfs.sh
 
 
 The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs).
@@ -206,7 +242,12 @@ The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs).
 
 .. code-block:: bash
 
-    $ jps
+    jps
+
+You should see the following with xxxxx replaced to actual process IDs.
+
+.. code-block:: bash
+
     xxxxx NameNode
     xxxxx SecondaryNameNode
     xxxxx DataNode
@@ -219,14 +260,19 @@ The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs).
 
 .. code-block:: bash
 
-    $ $HADOOP_HOME/sbin/start-yarn.sh
+    $HADOOP_HOME/sbin/start-yarn.sh
 
 
 6. Verify the daemons started sucessfully:
 
 .. code-block:: bash
 
-    $ jps
+    jps
+
+You should see the following with xxxxx replaced by actual process IDs.
+
+.. code-block:: bash
+
     xxxxx NameNode
     xxxxx SecondaryNameNode
     xxxxx DataNode
@@ -235,7 +281,8 @@ The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs).
     xxxxx ResourceManager
 
 
-7. Browse the web interface for the ResourceManager. By default this should be http://localhost:8088
+7. Browse the web interface for the ResourceManager. By default this should be at http://localhost:8088 or if you are
+using an Amazon VM instance replace localhost with the actual IP address.
 
 Example
 -------
@@ -244,37 +291,37 @@ Example
 
 .. code-block:: bash
 
-    $ $HADOOP_HOME/bin/hdfs dfs -mkdir -p .
-    $ $HADOOP_HOME/bin/hdfs dfs -mkdir input
+    $HADOOP_HOME/bin/hdfs dfs -mkdir -p .
+    $HADOOP_HOME/bin/hdfs dfs -mkdir input
 
 
 2. Copy the input files into HDFS. In this example, we use files in $HADOOP_HOME/etc/hadoop/ directory as input files.
 
 .. code-block:: bash
 
-    $ $HADOOP_HOME/bin/hdfs dfs -put $HADOOP_HOME/etc/hadoop/* input
+    $HADOOP_HOME/bin/hdfs dfs -put $HADOOP_HOME/etc/hadoop/* input
 
 
 3. Run the "grep" example provided.
 
 .. code-block:: bash
 
-    $ $HADOOP_HOME/bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar grep input output 'hadoop'
+    $HADOOP_HOME/bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar grep input output 'hadoop'
 
 
 4. View the output files on HDFS.
 
 .. code-block:: bash
 
-    $ $HADOOP_HOME/bin/hdfs dfs -cat output/*
+    $HADOOP_HOME/bin/hdfs dfs -cat output/*
 
 
 Or copy the output files to the local filesystem.
 
 .. code-block:: bash
 
-    $ $HADOOP_HOME/bin/hdfs dfs -get output output
-    $ cat output/*
+    $HADOOP_HOME/bin/hdfs dfs -get output output
+    cat output/*
 
 
 Stop daemons
@@ -283,5 +330,5 @@ If you are done, you can stop all daemons by using this code:
 
 .. code-block:: bash
 
-    $ $HADOOP_HOME/sbin/stop-dfs.sh
-    $ $HADOOP_HOME/sbin/stop-yarn.sh
+    $HADOOP_HOME/sbin/stop-dfs.sh
+    $HADOOP_HOME/sbin/stop-yarn.sh
