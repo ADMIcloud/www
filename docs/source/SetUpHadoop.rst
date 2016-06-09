@@ -15,7 +15,18 @@ This section describes how to set up Hadoop on one instance.
 
 Preparation
 -----------
-1. Java
+
+1. Vim
+
+Install vim, the command-line text editor using the following command.
+Note, once inside vim, to edit text you'll first need to press the letter i
+Then to escape from editing mode, you can press Esc. To save, press :w
+
+.. code-block:: bash
+
+    sudo apt-get install vim
+
+2. Java
 
    Download Oracle JDK 8 from http://www.oracle.com/technetwork/java/javase/downloads/index.html
    Extract the archive using the following steps:
@@ -28,12 +39,12 @@ Preparation
     tar xzf jdk-8u91-linux-x64.tar.gz
 
 
-Set the following environment variables (you can set the variables in the .bashrc file). You can use the following command to open and edit the .bashrc file. We also need to install vim editor to edit the files.
+Set the following environment variables (you can set the variables in the ~/.bashrc file).
+You can use the following command to open and edit the ~/.bashrc file.
 
 
 .. code-block:: bash
 
-    sudo apt-get install vim
     vim ~/.bashrc
 
 Add the the following lines to the end of the code:
@@ -59,7 +70,7 @@ You should see the following output.
     Java(TM) SE Runtime Environment (build 1.8.0_91-b14)
     Java HotSpot(TM) 64-Bit Server VM (build 25.91-b14, mixed mode)
 
-2.  SSH and Rsync
+3.  SSH and Rsync
 
     Install SSH and Rsync are not already installed in the environment. Use these commands to add them.
 
@@ -68,7 +79,7 @@ You should see the following output.
     sudo apt-get install ssh
     sudo apt-get install rsync
 
-3. Download and extract the latest Hadoop binary into your machine. These are available at http://hadoop.apache.org/releases.html. The following commands will download and extract Hadoop version 2.7.2.
+4. Download and extract the latest Hadoop binary into your machine. These are available at http://hadoop.apache.org/releases.html. The following commands will download and extract Hadoop version 2.7.2.
 
 .. code-block:: bash
 
@@ -76,12 +87,21 @@ You should see the following output.
     wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz
     tar -xzvf hadoop-2.7.2.tar.gz
 
-
-4. Make sure everything was done properly, then execute the following command from the Hadoop folder that we just extracted
+5. Export the following variable in ~/.bashrc
 
 .. code-block:: bash
 
-    cd ~/software/hadoop-2.7.2
+    vim ~/.bashrc
+    HADOOP_HOME=~/software/hadoop-2.7.2
+    export HADOOP_YARN_HOME=$HADOOP_HOME
+    export HADOOP_PREFIX=$HADOOP_HOME
+    export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+
+6. Make sure everything was done properly, then execute the following command from the Hadoop folder that we just extracted
+
+.. code-block:: bash
+
+    cd $HADOOP_PREFIX
     ./bin/hadoop
 
 You should see the following output.
