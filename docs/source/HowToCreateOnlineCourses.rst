@@ -3,6 +3,11 @@ How to Create Online Courses Using edX
 
 edX is a massive open online course (MOOC) provider. It hosts online university-level courses in a wide range of disciplines for a worldwide student body, including some courses at no charge. This tutorial will list the steps for creating an online course.
 
+Recoding videos
+----------------
+
+Before getting started, you need to record your course videos using a third-party tool like Microsoft 365 or Adobe.
+
 Getting Started with edX
 ------------------------
 
