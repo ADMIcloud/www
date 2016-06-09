@@ -96,48 +96,13 @@ The Reducer
 
 Compile the Code
 ----------------
-The code is available at https://github.com/ADMIcloud/examples. Download the code by using the git clone command or by clicking the Download Zip button. Then go to the HadoopKmeans directory and compile the code.
-In build.xml, change "PATH-TO-YOUR-HADOOP-HOME" to your Hadoop Home directory.
-
-.. code-block:: xml
-
-    <project name="hadoopCompile" default="jar" basedir=".">
-        <target name="init">
-	        <property name="sourceDir" value="."/>
-	        <property name="outputDir" value="classes"/>
-	        <property name="buildDir" value="jar"/>
-	        <property name="lib.dir" value="PATH-TO-YOUR-HADOOP-HOME"/>
-	        <path id="classpath">
-		        <fileset dir="${lib.dir}" includes="**/*.jar"/>
-	        </path>
-        </target>
-        <target name="clean" depends="init">
-	        <delete dir="${outputDir}"/>
-	        <delete dir="${buildDir}"/>
-        </target>
-        <target name="prepare" depends="clean">
-	        <mkdir dir="${outputDir}"/>
-	        <mkdir dir="${buildDir}"/>
-        </target>
-        <target name="compile" depends="prepare">
-	        <javac srcdir="${sourceDir}" destdir="${outputDir}" classpathref="classpath"/>
-        </target>
-        <target name="jar" depends="compile">
-	        <jar destfile="${buildDir}/hadoopkmeans.jar" basedir="${outputDir}">
-		        <manifest>
-			        <attribute name="Main-Class" value="admicloud.kmeans.mapreduce.KmeansMain"/>
-		        </manifest>
-	        </jar>
-        </target>
-    </project>
+The code is available at https://github.com/ADMIcloud/examples. Download the code by using the git clone command or by clicking the Download Zip button. Then go to the hadoop-kmeans directory and compile the code.
 
 
 .. code-block:: bash
-
-    $ cd HadoopKmeans
-    $ ant
-
-
+    $ git clone https://github.com/ADMIcloud/examples.git
+    $ cd examples/hadoop-kmeans
+    $ mvn clean install
 
 Run the Code
 ------------
@@ -145,13 +110,13 @@ The usage is:
 
 .. code-block:: bash
 
-    $ hadoop jar jar/hadoopkmeans.jar <num Of Data Points> <size of a vector> <num of Centroids> <number of map tasks> <number of iterations>
+    $ hadoop jar target/hadoop-kmeans-1.0.jar admicloud.hadoop.kmeans.KmeansMain <num Of Data Points> <size of a vector> <num of Centroids> <number of map tasks> <number of iterations>
 
 For example
 
 .. code-block:: bash
 
-    $ hadoop jar jar/hadoopkmeans.jar 100 3 10 2 3
+    $ hadoop jar target/hadoop-kmeans-1.0.jar admicloud.hadoop.kmeans.KmeansMain 100 3 10 2 3
 
 Hadoop K-means wil firstly generate 100 data points, each a 3-D vector. The data will be saved to HDFS. It then generates 10 initial centroids and writes them to HDFS. For every iteration, K-means loads centroids and reads key-value pairs to do computation, then writes new centroids back to HDFS.
 
