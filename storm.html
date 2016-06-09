@@ -233,6 +233,10 @@ mvn clean install
 </pre></div>
 </div>
 <p>This will build the jar file inside target folder.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ../apache-storm-1.0.1
+./bin/storm jar ../examples/storm-example/target/storm-example-1.0-jar-with-dependencies.jar admicloud.storm.wordcount.WordCountTopology WordCount
+</pre></div>
+</div>
 <p>You can view the topology by going to the web browser.</p>
 <p><a class="reference external" href="http://localhost:8080/index.html">http://localhost:8080/index.html</a></p>
 <p>To kill the topology, use the following command:</p>
@@ -284,7 +288,7 @@ mvn clean install
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, DSC.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1+.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
     </div>
   </body>
 </html>

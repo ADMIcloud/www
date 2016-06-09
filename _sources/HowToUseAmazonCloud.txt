@@ -1,8 +1,8 @@
 How to use Amazon Cloud for hands-on Labs
-====================================================
+=========================================
 
 Amazon Elastic Compute Cloud (EC2)
-------------------------------------------------
+----------------------------------
 
 .. figure:: http://quintagroup.com/cms/amazon/ec2.png
    :alt: Amazon
@@ -15,13 +15,13 @@ In EC2, an instance is a running and deployed virtual machine in the cloud. Inst
 
 
 EC2 in the Cloud Workshop
----------------------------
+-------------------------
 
 This workshop will rely extensively on the use of Amazon EC2 for computing services and deployed software. Specifically, all of the workshop software and tutorials have been built into a publicly available EC2 image for use not only in the workshop, but also afterwards. To speed up the workshop, VM instances have already been booted and prepared for you and login credentials will be distributed upon arrival.
 
 
 
 Logging into EC2 Instance
---------------------------
+-------------------------
 
 You will be assigned your own personal VM instance via a piece of paper. This will include two things: a  IP address and a unique password.  From here, you will log into the VM via SSH.

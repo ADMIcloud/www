@@ -57,9 +57,9 @@ The Main Method
     }
 
 
-------------------
+----------
 The Mapper
-------------------
+----------
 
 .. code-block:: java
 
@@ -70,9 +70,9 @@ The Mapper
     Context.write(j, <Vi, 1>)
 
 
-------------------
+-----------
 The Reducer
-------------------
+-----------
 
 .. code-block:: java
 
@@ -95,7 +95,7 @@ The Reducer
 
 
 Compile the Code
-------------------
+----------------
 The code is available at https://github.com/ADMIcloud/examples. Download the code by using the git clone command or by clicking the Download Zip button. Then go to the HadoopKmeans directory and compile the code.
 In build.xml, change "PATH-TO-YOUR-HADOOP-HOME" to your Hadoop Home directory.
 
@@ -140,7 +140,7 @@ In build.xml, change "PATH-TO-YOUR-HADOOP-HOME" to your Hadoop Home directory.
 
 
 Run the Code
-------------------
+------------
 The usage is:
 
 .. code-block:: bash
@@ -157,7 +157,7 @@ Hadoop K-means wil firstly generate 100 data points, each a 3-D vector. The data
 
 
 View the Results
-------------------
+----------------
 
 .. code-block:: bash
 

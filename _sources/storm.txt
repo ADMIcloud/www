@@ -2,7 +2,7 @@ Apache Storm Word Count
 =======================
 
 Apache Storm
----------------
+------------
 
 .. figure:: http://storm.apache.org/images/logo.png
    :alt: Storm
@@ -18,7 +18,7 @@ These are the things we will look at in this tutorial:
 * Run WordCount
 
 WordCount example
-------------------
+-----------------
 
 WordCount is a simple streaming example where Storm is used to keep track of the words and their counts streaming in. This example
 is included in the Storm distribution. The source code can be found in the examples source code.
@@ -38,9 +38,9 @@ WordCount bolt where the count is kept.
 
 Here is the source code of WordCount.
 
-------------------
+-----------------
 RandSentenceSpout
-------------------
+-----------------
 
 First it generates a random sentence and emits it to the Splitter.
 
@@ -220,9 +220,9 @@ http://localhost:8080/index.html
 
 to view the Storm cluster.
 
---------------------------
+-------------------------
 Run the example WordCount
---------------------------
+-------------------------
 
 Now open another terminal to run the Storm example WordCount.
 
@@ -237,6 +237,7 @@ First you need to build it
 This will build the jar file inside target folder.
 
 .. code-block:: bash
+
     cd ../apache-storm-1.0.1
     ./bin/storm jar ../examples/storm-example/target/storm-example-1.0-jar-with-dependencies.jar admicloud.storm.wordcount.WordCountTopology WordCount
 
