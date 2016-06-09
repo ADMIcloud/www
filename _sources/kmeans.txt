@@ -100,6 +100,7 @@ The code is available at https://github.com/ADMIcloud/examples. Download the cod
 
 
 .. code-block:: bash
+
     $ git clone https://github.com/ADMIcloud/examples.git
     $ cd examples/hadoop-kmeans
     $ mvn clean install
