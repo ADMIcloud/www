@@ -181,38 +181,12 @@ The complete code of the WordCount example is visible below.
 
 Compiling the Code
 ------------------
-In order to compile the code we need to create a .java file that contains our code. Execute the following commands and paste the code listed above into the file created by the vim command.
 
 .. code-block:: bash
+    git clone https://github.com/ADMIcloud/examples.git
+    cd examples/hadoop-wordcount
+    mvn clean install
 
-    cd ~/software/hadoop-2.7.2
-    vim WordCount.java
-
-They are several ways to generate a jar file from WordCount.java. The following is a very simple and straightforward method that can be used.  Move to the Hadoop directory and execute the following commands. You need to have the WordCount.java file also under the Hadoop directory.
-
-.. code-block:: bash
-
-    cd ~/software/hadoop-2.7.2
-    export HADOOP_CLASSPATH=${JAVA_HOME}/lib/tools.jar
-    ./bin/hadoop com.sun.tools.javac.Main WordCount.java
-    jar cf wc.jar WordCount*.class
-
-
-This will create a jar file that contains the compiled classes needed to run the program on Hadoop.
-
---------
-Optional
---------
-
-Another cleaner method would be to create a MVN project for the WordCount example and simply do a “mvn clean install” which will produce a jar file. You will need to add the following dependency in the pom.xml.
-
-.. code-block:: xml
-
-    <dependency>
-        <groupId>org.apache.hadoop</groupId>
-        <artifactId>hadoop-core</artifactId>
-        <version>1.2.1</version>
-    </dependency>
 
 Running the Code
 ----------------
@@ -251,7 +225,14 @@ To run the mapreduce job execute the following command from the Hadoop directory
 
 .. code-block:: bash
 
-    $HADOOP_HOME/bin/hadoop jar wc.jar WordCount wordcount_input wordcount_output
+    $HADOOP_HOME/bin/hadoop jar target/hadoop-wordcount-1.0.jar admicloud.hadoop.wordcount.WordCount wordcount_input wordcount_output
+
+If the wordcount_output already exists, delete it before running the code.
+
+.. code-block:: bash
+
+    $HADOOP_HOME/bin/hdfs dfs -rm -r wordcount_output
+
 
 After the job has completed, execute the following command and check the output that was generated.
 

@@ -208,30 +208,6 @@
 </div>
 <div class="section" id="compiling-the-code">
 <h2>Compiling the Code<a class="headerlink" href="#compiling-the-code" title="Permalink to this headline">¶</a></h2>
-<p>In order to compile the code we need to create a .java file that contains our code. Execute the following commands and paste the code listed above into the file created by the vim command.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/software/hadoop-2.7.2
-vim WordCount.java
-</pre></div>
-</div>
-<p>They are several ways to generate a jar file from WordCount.java. The following is a very simple and straightforward method that can be used.  Move to the Hadoop directory and execute the following commands. You need to have the WordCount.java file also under the Hadoop directory.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/software/hadoop-2.7.2
-<span class="nb">export</span> <span class="nv">HADOOP_CLASSPATH</span><span class="o">=</span><span class="si">${</span><span class="nv">JAVA_HOME</span><span class="si">}</span>/lib/tools.jar
-./bin/hadoop com.sun.tools.javac.Main WordCount.java
-jar cf wc.jar WordCount*.class
-</pre></div>
-</div>
-<p>This will create a jar file that contains the compiled classes needed to run the program on Hadoop.</p>
-<div class="section" id="optional">
-<h3>Optional<a class="headerlink" href="#optional" title="Permalink to this headline">¶</a></h3>
-<p>Another cleaner method would be to create a MVN project for the WordCount example and simply do a “mvn clean install” which will produce a jar file. You will need to add the following dependency in the pom.xml.</p>
-<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.apache.hadoop<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>hadoop-core<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>1.2.1<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="section" id="running-the-code">
 <h2>Running the Code<a class="headerlink" href="#running-the-code" title="Permalink to this headline">¶</a></h2>
@@ -256,7 +232,11 @@ vim 2.txt
 </pre></div>
 </div>
 <p>To run the mapreduce job execute the following command from the Hadoop directory:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hadoop jar wc.jar WordCount wordcount_input wordcount_output
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hadoop jar target/hadoop-wordcount-1.0.jar admicloud.hadoop.wordcount.WordCount wordcount_input wordcount_output
+</pre></div>
+</div>
+<p>If the wordcount_output already exists, delete it before running the code.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -rm -r wordcount_output
 </pre></div>
 </div>
 <p>After the job has completed, execute the following command and check the output that was generated.</p>
