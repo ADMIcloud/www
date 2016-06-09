@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Set Up Hadoop &mdash; ADMICloud  documentation</title>
+    <title>Set up Hadoop &mdash; ADMICloud  documentation</title>
     
     <link rel="stylesheet" href="_static/pyramid.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -44,90 +44,128 @@
           <div class="body" role="main">
             
   <div class="section" id="set-up-hadoop">
-<h1>Set Up Hadoop<a class="headerlink" href="#set-up-hadoop" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="hadoop">
-<h2>Hadoop<a class="headerlink" href="#hadoop" title="Permalink to this headline">¶</a></h2>
+<h1>Set up Hadoop<a class="headerlink" href="#set-up-hadoop" title="Permalink to this headline">¶</a></h1>
 <div class="figure">
 <a class="reference internal image-reference" href="http://hadoop.apache.org/images/hadoop-logo.jpg"><img alt="Hadoop" src="http://hadoop.apache.org/images/hadoop-logo.jpg" style="width: 400px;" /></a>
 </div>
 <p>Hadoop is an open source framework for distributed storage and processing of large datasets on a commodity cluster. Hadoop utilizes the Hadoop Distributed File System (HDFS) for data storage and the MapReduce model for computational processing. Hadoop 2.0 also includes the YARN resource management platform which manages multiple nodes within the cluster and is responsible for task scheduling.</p>
 <p>This section describes how to set up Hadoop on one instance.</p>
-</div>
 <div class="section" id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li>Vim</li>
-</ol>
-<p>Install vim, the command-line text editor using the following command.
-Note, once inside vim, to edit text you&#8217;ll first need to press the letter i
-Then to escape from editing mode, you can press Esc. To save, press :w</p>
+<ol class="arabic">
+<li><p class="first">Create Directories</p>
+<blockquote>
+<div><p>We&#8217;ll assume the following directory structure, where <strong>examples</strong> contains the code examples for this workshop.
+The <strong>software</strong> directory holds unzipped software, while <strong>zips</strong> contains the software tarballs.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>/home/ubuntu
+├── examples
+├── software
+└── zips
+</pre></div>
+</div>
+<p>If you don&#8217;t see this structure, you can create it using the following command.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir ~/<span class="o">{</span>examples,software,zips<span class="o">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Vim</p>
+<blockquote>
+<div><p>Install vim, the command-line text editor using the following command.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt-get install vim
 </pre></div>
 </div>
-<ol class="arabic" start="2">
-<li><p class="first">Java</p>
-<p>Download Oracle JDK 8 from <a class="reference external" href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">http://www.oracle.com/technetwork/java/javase/downloads/index.html</a>
-Extract the archive using the following steps:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Once inside vim, to edit text you&#8217;ll first need to press the letter <strong>i</strong>.
+Then to escape from the editing mode, you can press <strong>Esc</strong> key. To save, press <strong>:w</strong> and
+to quit, press <strong>:q</strong></p>
+</div>
+</div></blockquote>
 </li>
-</ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir ~/software
-<span class="nb">cd</span> ~/software
-wget --no-cookies --no-check-certificate --header <span class="s2">&quot;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&quot;</span> <span class="s2">&quot;http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.tar.gz&quot;</span>
-tar xzf jdk-8u91-linux-x64.tar.gz
-</pre></div>
-</div>
-<p>Set the following environment variables (you can set the variables in the ~/.bashrc file).
-You can use the following command to open and edit the ~/.bashrc file.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>vim ~/.bashrc
-</pre></div>
-</div>
-<p>Add the the following lines to the end of the code:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">JAVA_HOME</span><span class="o">=</span>~/software/jdk1.8.0_91
-<span class="nv">PATH</span><span class="o">=</span><span class="nv">$JAVA_HOME</span>/bin:<span class="nv">$PATH</span>
-<span class="nb">export</span> JAVA_HOME PATH
-</pre></div>
-</div>
-<p>Now run the following command in order to make sure the changes are applied. You should see an output similar to the one given below after running the code.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">source</span> ~/.bashrc
-java -version
-</pre></div>
-</div>
-<p>You should see the following output.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>java version <span class="s2">&quot;1.8.0_91&quot;</span>
-Java<span class="o">(</span>TM<span class="o">)</span> SE Runtime Environment <span class="o">(</span>build 1.8.0_91-b14<span class="o">)</span>
-Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM <span class="o">(</span>build 25.91-b14, mixed mode<span class="o">)</span>
-</pre></div>
-</div>
-<ol class="arabic" start="3">
 <li><p class="first">SSH and Rsync</p>
-<p>Install SSH and Rsync are not already installed in the environment. Use these commands to add them.</p>
-</li>
-</ol>
+<blockquote>
+<div><p>Install SSH and Rsync are not already installed in the environment. Use the following commands to install them.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>sudo apt-get install ssh
 sudo apt-get install rsync
 </pre></div>
 </div>
-<ol class="arabic simple" start="4">
-<li>Download and extract the latest Hadoop binary into your machine. These are available at <a class="reference external" href="http://hadoop.apache.org/releases.html">http://hadoop.apache.org/releases.html</a>. The following commands will download and extract Hadoop version 2.7.2.</li>
-</ol>
+</div></blockquote>
+</li>
+<li><p class="first">Java</p>
+<blockquote>
+<div><p>Download Oracle JDK 8 and extract the archive using the following steps.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/software
+wget --no-cookies --no-check-certificate --header <span class="s2">&quot;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&quot;</span> <span class="s2">&quot;http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.tar.gz&quot;</span>
+tar xzf jdk-8u91-linux-x64.tar.gz
+mv jdk-8u91-linux-x64.tar.gz ~/zips
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Apache Maven</p>
+<blockquote>
+<div><p>Download Apache Maven 3 and unzip it using the following commands.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/software
+wget http://ftp.wayne.edu/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+tar xzf apache-maven-3.3.9-bin.tar.gz
+mv apache-maven-3.3.9-bin.tar.gz ~/zips
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p class="first">Apache Hadoop</p>
+<blockquote>
+<div><p>Download and extract the latest Hadoop binary into your machine.
+These are available at <a class="reference external" href="http://hadoop.apache.org/releases.html">http://hadoop.apache.org/releases.html</a>.
+The following commands will download and extract Hadoop version 2.7.2.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/software
 wget http://www-eu.apache.org/dist/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz
 tar -xzvf hadoop-2.7.2.tar.gz
+mv hadoop-2.7.2.tar.gz ~/zips
 </pre></div>
 </div>
-<ol class="arabic simple" start="5">
-<li>Export the following variable in ~/.bashrc</li>
+</div></blockquote>
+</li>
 </ol>
+<ol class="arabic" start="6">
+<li><p class="first">Environment Variables</p>
+<blockquote>
+<div><p>Set the following environment variables (you can set the variables at the <strong>top</strong> of the ~/.bashrc file).
+You can use the following command to open and edit the ~/.bashrc file.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>vim ~/.bashrc
+</pre></div>
+</div>
+<p>Add the the following lines to the beginning of the file.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">MVN_HOME</span><span class="o">=</span>~/software/apache-maven-3.3.9
+<span class="nv">JAVA_HOME</span><span class="o">=</span>~/software/jdk1.8.0_91
+<span class="nv">PATH</span><span class="o">=</span><span class="nv">$MVN_HOME</span>/bin:<span class="nv">$JAVA_HOME</span>/bin:<span class="nv">$PATH</span>
+<span class="nb">export</span> JAVA_HOME PATH
+
 <span class="nv">HADOOP_HOME</span><span class="o">=</span>~/software/hadoop-2.7.2
 <span class="nb">export</span> <span class="nv">HADOOP_YARN_HOME</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
 <span class="nb">export</span> <span class="nv">HADOOP_PREFIX</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>
 <span class="nb">export</span> <span class="nv">HADOOP_CONF_DIR</span><span class="o">=</span><span class="nv">$HADOOP_HOME</span>/etc/hadoop
 </pre></div>
 </div>
-<ol class="arabic simple" start="6">
-<li>Make sure everything was done properly, then execute the following command from the Hadoop folder that we just extracted</li>
+<p>Now run the following command in order to make sure the changes are applied.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">source</span> ~/.bashrc
+java -version
+</pre></div>
+</div>
+<p>You should see an output similar to the one given below.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>java version <span class="s2">&quot;1.8.0_91&quot;</span>
+Java<span class="o">(</span>TM<span class="o">)</span> SE Runtime Environment <span class="o">(</span>build 1.8.0_91-b14<span class="o">)</span>
+Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM <span class="o">(</span>build 25.91-b14, mixed mode<span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
 </ol>
+<ol class="arabic" start="6">
+<li><p class="first">Verify Apache Hadoop</p>
+<blockquote>
+<div><p>Check if you can successfully run the following Apache Hadoop command.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$HADOOP_PREFIX</span>
 ./bin/hadoop
 </pre></div>
@@ -154,14 +192,17 @@ tar -xzvf hadoop-2.7.2.tar.gz
 Most commands print <span class="nb">help</span> when invoked w/o parameters.
 </pre></div>
 </div>
+</div></blockquote>
+</li>
+</ol>
 </div>
-<div class="section" id="set-up-passphrase-less-ssh">
-<h2>Set up passphrase-less ssh<a class="headerlink" href="#set-up-passphrase-less-ssh" title="Permalink to this headline">¶</a></h2>
-<p>First, check your code with the following command:</p>
+<div class="section" id="set-up-password-less-ssh">
+<h2>Set up Password-less SSH<a class="headerlink" href="#set-up-password-less-ssh" title="Permalink to this headline">¶</a></h2>
+<p>Test if you can SSH to <strong>localhost</strong> without requiring a password.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>ssh localhost
 </pre></div>
 </div>
-<p>If you cannot ssh to the localhost without a passphrase, use the following commands to set up passphrase-less ssh:</p>
+<p>If the above requires a password then setup password-less SSH using the following commands.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/.ssh
 ssh-keygen -t rsa
 <span class="o">(</span>hit enter to all the options<span class="o">)</span>
@@ -174,15 +215,19 @@ cat id_rsa.pub &gt;&gt; authorized_keys
 </pre></div>
 </div>
 </div>
-<div class="section" id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
-<p>Modify the following files, replacing $HADOOP_HOME with your own Hadoop home path.</p>
-<p>In $HADOOP_HOME/etc/hadoop/hadoop-env.sh, replace ${JAVA_HOME} with your own Java home path. If it is ~/software/jdk1.8.0_91, then add the following:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="c1"># The java implementation to use.</span>
-<span class="nb">export</span> <span class="nv">JAVA_HOME</span><span class="o">=</span>~/software/jdk1.8.0_91#The java implementation to use.
+<div class="section" id="apache-hadoop-configuration">
+<h2>Apache Hadoop Configuration<a class="headerlink" href="#apache-hadoop-configuration" title="Permalink to this headline">¶</a></h2>
+<p>Modify the following files in Apache Hadoop distribution.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Make sure the environment variable $HADOOP_PREFIX is set correctly before proceeding with the following.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">core-site.xml</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>vim <span class="nv">$HADOOP_PREFIX</span>/etc/hadoop/core-site.xml
 </pre></div>
 </div>
-<p>$HADOOP_HOME/etc/hadoop/core-site.xml</p>
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration&gt;</span>
     <span class="nt">&lt;property&gt;</span>
         <span class="nt">&lt;name&gt;</span>fs.default.name<span class="nt">&lt;/name&gt;</span>
@@ -191,22 +236,47 @@ cat id_rsa.pub &gt;&gt; authorized_keys
 
     <span class="nt">&lt;property&gt;</span>
         <span class="nt">&lt;name&gt;</span>hadoop.tmp.dir<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;value&gt;</span>$HADOOP_HOME/tmp<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;value&gt;</span>/tmp/hadoop-${user.name}<span class="nt">&lt;/value&gt;</span>
         <span class="nt">&lt;description&gt;</span>A base for other temporary directories.<span class="nt">&lt;/description&gt;</span>
     <span class="nt">&lt;/property&gt;</span>
 <span class="nt">&lt;/configuration&gt;</span>
 </pre></div>
 </div>
-<p>$HADOOP_HOME/etc/hadoop/hdfs-site.xml</p>
+</div></blockquote>
+</li>
+<li><p class="first">hdfs-site.xml</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>vim <span class="nv">$HADOOP_PREFIX</span>/etc/hadoop/hdfs-site.xml
+</pre></div>
+</div>
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.hosts<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>/home/ubuntu/software/hadoop-2.7.2/etc/hadoop/slaves<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+
     <span class="nt">&lt;property&gt;</span>
         <span class="nt">&lt;name&gt;</span>dfs.replication<span class="nt">&lt;/name&gt;</span>
         <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span>
     <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.namenode.http-address<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost:50070<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.namenode.secondary.http-address<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost:50190<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
 <span class="nt">&lt;/configuration&gt;</span>
 </pre></div>
 </div>
-<p>$HADOOP_HOME/etc/hadoop/mapred-site.xml</p>
+</div></blockquote>
+</li>
+<li><p class="first">mapred-site.xml</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>vim <span class="nv">$HADOOP_PREFIX</span>/etc/hadoop/mapred-site.xml
+</pre></div>
+</div>
 <div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration&gt;</span>
     <span class="nt">&lt;property&gt;</span>
         <span class="nt">&lt;name&gt;</span>mapreduce.framework.name<span class="nt">&lt;/name&gt;</span>
@@ -215,11 +285,38 @@ cat id_rsa.pub &gt;&gt; authorized_keys
 <span class="nt">&lt;/configuration&gt;</span>
 </pre></div>
 </div>
-<p>$HADOOP_HOME/etc/hadoop/yarn-site.xml</p>
-<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="nt">&lt;configuration&gt;</span>
+</div></blockquote>
+</li>
+<li><p class="first">yarn-site.xml</p>
+<blockquote>
+<div><div class="highlight-xml"><div class="highlight"><pre><span></span>    <span class="nt">&lt;configuration&gt;</span>
     <span class="nt">&lt;property&gt;</span>
-        <span class="nt">&lt;name&gt;</span>yarn.resourcemanager.hostname<span class="nt">&lt;/name&gt;</span>
-        <span class="nt">&lt;value&gt;</span>localhost<span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;name&gt;</span>yarn.resourcemanager.address<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost:8132<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>yarn.resourcemanager.scheduler.address<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost:8130<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>yarn.resourcemanager.resource-tracker.address<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost:8131<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>yarn.resourcemanager.admin.address<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost:8133<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>yarn.resourcemanager.webapp.address<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>localhost:8080<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>yarn.scheduler.maximum-allocation-mb<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>4096<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>yarn.nodemanager.resource.memory-mb<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>4096<span class="nt">&lt;/value&gt;</span>
     <span class="nt">&lt;/property&gt;</span>
 
     <span class="nt">&lt;property&gt;</span>
@@ -229,33 +326,38 @@ cat id_rsa.pub &gt;&gt; authorized_keys
 <span class="nt">&lt;/configuration&gt;</span>
 </pre></div>
 </div>
+</div></blockquote>
+</li>
+</ol>
 </div>
 <div class="section" id="start-daemons">
 <h2>Start Daemons<a class="headerlink" href="#start-daemons" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li>Format the file system next.</li>
-</ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs namenode -format
+<ol class="arabic">
+<li><p class="first">Format the file system next.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/bin/hdfs namenode -format
 </pre></div>
 </div>
-<p>If you can see information like this, the format process should be successful.</p>
+<p>If you can see information like below, the format process should be successful.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>xx/xx/xx xx:xx:xx INFO util.ExitUtil: Exiting with status 0
 xx/xx/xx xx:xx:xx INFO namenode.NameNode: SHUTDOWN_MSG:
 /************************************************************
 SHUTDOWN_MSG: Shutting down NameNode at xxx.xxx.xxx.xxx
 </pre></div>
 </div>
-<ol class="arabic simple" start="2">
-<li>Launch NameNode daemon and DataNode daemon</li>
-</ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/sbin/start-dfs.sh
+</div></blockquote>
+</li>
+<li><p class="first">Launch NameNode daemon and DataNode daemon</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/sbin/start-dfs.sh
 </pre></div>
 </div>
-<p>The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs).</p>
-<ol class="arabic simple" start="3">
-<li>Check if the daemons started successfully.</li>
-</ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>jps
+<p>The log is in the $HADOOP_LOG_DIR directory (default is $HADOOP_PREFIX/logs).</p>
+</div></blockquote>
+</li>
+<li><p class="first">Check if the daemons started successfully.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>jps
 </pre></div>
 </div>
 <p>You should see the following with xxxxx replaced to actual process IDs.</p>
@@ -265,17 +367,20 @@ xxxxx DataNode
 xxxxx Jps
 </pre></div>
 </div>
-<ol class="arabic simple" start="4">
-<li>Browse the web interface for the NameNode. By default this is at <a class="reference external" href="http://localhost:50070">http://localhost:50070</a></li>
-<li>Start ResourceManager daemon and NodeManager Daemon</li>
-</ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/sbin/start-yarn.sh
+</div></blockquote>
+</li>
+<li><p class="first">Browse the web interface for the NameNode. By default this is at <a class="reference external" href="http://localhost:50070">http://localhost:50070</a></p>
+</li>
+<li><p class="first">Start ResourceManager daemon and NodeManager Daemon</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/sbin/start-yarn.sh
 </pre></div>
 </div>
-<ol class="arabic simple" start="6">
-<li>Verify the daemons started sucessfully:</li>
-</ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>jps
+</div></blockquote>
+</li>
+<li><p class="first">Verify the daemons started sucessfully:</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span>jps
 </pre></div>
 </div>
 <p>You should see the following with xxxxx replaced by actual process IDs.</p>
@@ -287,49 +392,64 @@ xxxxx Jps
 xxxxx ResourceManager
 </pre></div>
 </div>
+</div></blockquote>
+</li>
+</ol>
 <p>7. Browse the web interface for the ResourceManager. By default this should be at <a class="reference external" href="http://localhost:8088">http://localhost:8088</a> or if you are
 using an Amazon VM instance replace localhost with the actual IP address.</p>
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li>Make the Hadoop Distributed File System (HDFS) directories.</li>
-</ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -mkdir -p .
-<span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -mkdir input
+<ol class="arabic">
+<li><p class="first">Make the Hadoop Distributed File System (HDFS) directories.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/bin/hdfs dfs -mkdir -p .
+<span class="nv">$HADOOP_PREFIX</span>/bin/hdfs dfs -mkdir input
 </pre></div>
 </div>
-<ol class="arabic simple" start="2">
-<li>Copy the input files into HDFS. In this example, we use files in $HADOOP_HOME/etc/hadoop/ directory as input files.</li>
-</ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -put <span class="nv">$HADOOP_HOME</span>/etc/hadoop/* input
+</div></blockquote>
+</li>
+<li><p class="first">Copy the input files into HDFS. In this example, we use files in $HADOOP_PREFIX/etc/hadoop/ directory as input files.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/bin/hdfs dfs -put <span class="nv">$HADOOP_PREFIX</span>/etc/hadoop/* input
 </pre></div>
 </div>
-<ol class="arabic simple" start="3">
-<li>Run the &#8220;grep&#8221; example provided.</li>
-</ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar grep input output <span class="s1">&#39;hadoop&#39;</span>
+</div></blockquote>
+</li>
+<li><p class="first">Run the &#8220;grep&#8221; example provided.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar grep input output <span class="s1">&#39;hadoop&#39;</span>
 </pre></div>
 </div>
-<ol class="arabic simple" start="4">
-<li>View the output files on HDFS.</li>
-</ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -cat output/*
+</div></blockquote>
+</li>
+<li><p class="first">View the output files on HDFS.</p>
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/bin/hdfs dfs -cat output/*
 </pre></div>
 </div>
 <p>Or copy the output files to the local filesystem.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -get output output
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/bin/hdfs dfs -get output output
 cat output/*
 </pre></div>
 </div>
+<p>You should see the output as follows.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="m">167</span>     hadoop
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
 </div>
 <div class="section" id="stop-daemons">
 <h2>Stop daemons<a class="headerlink" href="#stop-daemons" title="Permalink to this headline">¶</a></h2>
 <p>If you are done, you can stop all daemons by using this code:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/sbin/stop-dfs.sh
-<span class="nv">$HADOOP_HOME</span>/sbin/stop-yarn.sh
+<blockquote>
+<div><div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/sbin/stop-dfs.sh
+<span class="nv">$HADOOP_PREFIX</span>/sbin/stop-yarn.sh
 </pre></div>
 </div>
+</div></blockquote>
 </div>
 </div>
 
