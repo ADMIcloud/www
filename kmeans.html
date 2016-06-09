@@ -79,8 +79,8 @@ assigned to which partition.</p>
 </ol>
 </div></blockquote>
 </div>
-<div class="section" id="pseudo-code">
-<h2>Pseudo Code<a class="headerlink" href="#pseudo-code" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="pseudo-code-and-java-code">
+<h2>Pseudo Code and Java Code<a class="headerlink" href="#pseudo-code-and-java-code" title="Permalink to this headline">¶</a></h2>
 <p>Denote:</p>
 <ul class="simple">
 <li>N is the number of data points</li>
@@ -91,11 +91,79 @@ assigned to which partition.</p>
 </ul>
 <div class="section" id="the-main-method">
 <h3>The Main Method<a class="headerlink" href="#the-main-method" title="Permalink to this headline">¶</a></h3>
+<p>The tasks of the main class is to configure and run the job iteratively.</p>
 <div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">generate</span> <span class="n">N</span> <span class="n">data</span> <span class="nf">points</span> <span class="o">(</span><span class="n">D</span> <span class="n">dimensions</span><span class="o">),</span> <span class="n">write</span> <span class="n">to</span> <span class="n">HDFS</span>
 <span class="n">generate</span> <span class="n">M</span> <span class="n">centroids</span><span class="o">,</span> <span class="n">write</span> <span class="n">to</span> <span class="n">HDFS</span>
 <span class="k">for</span> <span class="n">iterations</span><span class="o">{</span>
     <span class="n">configure</span> <span class="n">a</span> <span class="n">job</span>
     <span class="n">launch</span> <span class="n">the</span> <span class="n">job</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<p>Now looking at the actual java implementation. The first step of the sample program is to generate a set of points. This is done using the following line in the main launch method. The actual method
+that is in the Utils.java class is also shown for reference. This method generates a set of data points and writes them into the folder specified. The method also takes in parameters to specify the number
+of files and number of data points that need to be generated. The data points are divided among the data files.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Utils</span><span class="o">.</span><span class="na">generateDataFiles</span><span class="o">(</span><span class="n">fs</span><span class="o">,</span> <span class="n">dataDir</span><span class="o">,</span>  <span class="n">numDataPoints</span><span class="o">,</span> <span class="n">vectorSize</span><span class="o">,</span> <span class="n">numFiles</span> <span class="o">);</span>
+
+<span class="c1">// generateDataFiles method from Utils.java</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">generateDataFiles</span><span class="o">(</span><span class="n">FileSystem</span> <span class="n">fs</span><span class="o">,</span> <span class="n">Path</span> <span class="n">dataDir</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numOfDataPoints</span><span class="o">,</span> <span class="kt">int</span> <span class="n">vectorSize</span><span class="o">,</span> <span class="kt">int</span> <span class="n">numFiles</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">{</span>
+            <span class="n">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+            <span class="kt">int</span> <span class="n">dataPerFile</span> <span class="o">=</span> <span class="n">numOfDataPoints</span> <span class="o">/</span> <span class="n">numFiles</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">numOfDataPoints</span> <span class="o">%</span> <span class="n">numFiles</span><span class="o">;</span>
+            <span class="n">BufferedWriter</span> <span class="n">br</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="n">Path</span> <span class="n">pt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">dataThisFile</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numFiles</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+                    <span class="k">if</span><span class="o">(</span><span class="n">remainder</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">){</span>
+                            <span class="n">dataThisFile</span> <span class="o">=</span> <span class="n">dataPerFile</span> <span class="o">+</span> <span class="mi">1</span><span class="o">;</span>
+                            <span class="n">remainder</span> <span class="o">-=</span> <span class="mi">1</span><span class="o">;</span>
+                    <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+                            <span class="n">dataThisFile</span> <span class="o">=</span> <span class="n">dataPerFile</span><span class="o">;</span>
+                    <span class="o">}</span>
+
+                    <span class="n">pt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Path</span><span class="o">(</span><span class="n">KmeansConstants</span><span class="o">.</span><span class="na">DATA_DIR</span> <span class="o">+</span> <span class="s">&quot;/data_&quot;</span><span class="o">+</span><span class="n">i</span><span class="o">);</span>
+                    <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedWriter</span><span class="o">(</span><span class="k">new</span> <span class="n">OutputStreamWriter</span><span class="o">(</span><span class="n">fs</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">pt</span><span class="o">,</span><span class="kc">true</span><span class="o">)));</span>
+                    <span class="n">String</span> <span class="n">aData</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="o">;</span>
+                    <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">dataThisFile</span><span class="o">;</span> <span class="n">k</span><span class="o">++){</span>
+                            <span class="n">aData</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+                            <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">vectorSize</span><span class="o">;</span> <span class="n">j</span><span class="o">++){</span>
+                                    <span class="kt">int</span> <span class="n">aElement</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+                                    <span class="k">if</span><span class="o">(</span> <span class="n">j</span> <span class="o">!=</span> <span class="n">vectorSize</span><span class="o">-</span><span class="mi">1</span> <span class="o">){</span>
+                                            <span class="n">aData</span> <span class="o">+=</span> <span class="n">aElement</span> <span class="o">+</span> <span class="s">&quot;\t&quot;</span><span class="o">;</span>
+                                    <span class="o">}</span>
+                                    <span class="k">else</span><span class="o">{</span>
+                                            <span class="n">aData</span> <span class="o">+=</span> <span class="n">aElement</span><span class="o">+</span> <span class="s">&quot;\n&quot;</span><span class="o">;</span>
+                                    <span class="o">}</span>
+                            <span class="o">}</span>
+                            <span class="n">br</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">aData</span><span class="o">);</span>
+                    <span class="o">}</span>
+                    <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;wrote to &quot;</span><span class="o">+</span><span class="n">pt</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+            <span class="o">}</span>
+    <span class="o">}</span>
+</pre></div>
+</div>
+<p>The next step is to generate a set of centroids. As it was mentioned in the description K-Means needs a set of initial centroids. The &#8220;generateInitialCentroids&#8221; method in the Utils class
+will generate a set of random centroids.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="n">Utils</span><span class="o">.</span><span class="na">generateInitialCentroids</span><span class="o">(</span><span class="n">fs</span><span class="o">,</span> <span class="n">cDir</span><span class="o">,</span> <span class="n">numCentroids</span><span class="o">,</span> <span class="n">vectorSize</span><span class="o">);</span>
+</pre></div>
+</div>
+<p>After the initialization steps are completed the main class will run a set of map reduce jobs iteratively. The number of iterations are specified by the user.
+The following code block will at each iteration configure a job and run it.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">iter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">iter</span> <span class="o">&lt;</span> <span class="n">numIteration</span><span class="o">;</span> <span class="n">iter</span><span class="o">++){</span>
+    <span class="c1">//delete output directory if existed</span>
+    <span class="k">if</span><span class="o">(</span> <span class="n">fs</span><span class="o">.</span><span class="na">exists</span><span class="o">(</span><span class="n">outDir</span><span class="o">)){</span>
+        <span class="n">fs</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">outDir</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">job</span> <span class="o">=</span> <span class="n">configureAJob</span><span class="o">(</span><span class="n">configuration</span><span class="o">,</span> <span class="n">iter</span><span class="o">,</span> <span class="n">vectorSize</span><span class="o">,</span> <span class="n">numCentroids</span><span class="o">,</span><span class="n">dataDir</span><span class="o">,</span> <span class="n">outDir</span> <span class="o">);</span>
+
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">job</span><span class="o">.</span><span class="na">waitForCompletion</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+    <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+        <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;---------------------------| Iteration #&quot;</span> <span class="o">+</span><span class="n">iter</span> <span class="o">+</span> <span class="s">&quot; Finished |-------------------------------&quot;</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
 </div>
@@ -107,6 +175,51 @@ assigned to which partition.</p>
 #The value of the input key-value pair is a data point Vi
 find the nearest centroid Cj for the data point Vi
 Context.write(j, &lt;Vi, 1&gt;)
+</pre></div>
+</div>
+<p>Now looking at the java implementaion of the mapper class. First the setup method will be called to initialize the mapper class. In the setup method
+all the needed configurations will be loaded. most importantly the set of centroids that are saved in the centroids file will be loaded into an array.
+The main map task is handled in the map function.</p>
+<p>In the map function it reads in each line from the data files and calculates distances between the current data point and each centroid to determine the closest centroid
+to the data point. The index of the closest centroid is stored in the variable &#8220;minCentroid&#8221; for later use. The values in the &#8220;newCentroids&#8221; array is updated after finding the closest
+centroid. &#8220;newCentroids&#8221; array contains the sum of all data points that are closest to each centroid. For example newCentroids[0] contains the sum of all data points that are closest to
+centroid 0.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">map</span><span class="o">(</span><span class="n">LongWritable</span> <span class="n">key</span><span class="o">,</span> <span class="n">Text</span> <span class="n">val</span><span class="o">,</span> <span class="n">Context</span> <span class="n">context</span><span class="o">)</span>
+                    <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+
+            <span class="c1">//1.2 construct the input data point</span>
+            <span class="n">String</span> <span class="n">valStr</span><span class="o">[]</span> <span class="o">=</span> <span class="n">val</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">&quot;\t&quot;</span><span class="o">);</span>
+            <span class="kt">double</span> <span class="n">data</span><span class="o">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">double</span><span class="o">[</span><span class="n">VECTOR_SIZE</span><span class="o">];</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">VECTOR_SIZE</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+                    <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">valStr</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+
+            <span class="c1">//1.3 find nearest centroid for the input data point.</span>
+            <span class="kt">double</span> <span class="n">distance</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">minCentroid</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="kt">double</span> <span class="n">minDistance</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NUM_CENTROIDS</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                    <span class="n">distance</span> <span class="o">=</span> <span class="n">Utils</span><span class="o">.</span><span class="na">getEuclidean2</span><span class="o">(</span><span class="n">centroids</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">data</span><span class="o">,</span> <span class="n">VECTOR_SIZE</span><span class="o">);</span>
+                    <span class="k">if</span><span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="o">){</span>
+                            <span class="n">minDistance</span> <span class="o">=</span> <span class="n">distance</span><span class="o">;</span>
+                            <span class="n">minCentroid</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+                    <span class="o">}</span>
+                    <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">distance</span> <span class="o">&lt;</span> <span class="n">minDistance</span><span class="o">)</span> <span class="o">{</span>
+                            <span class="n">minDistance</span> <span class="o">=</span> <span class="n">distance</span><span class="o">;</span>
+                            <span class="n">minCentroid</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
+                    <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">VECTOR_SIZE</span><span class="o">;</span> <span class="n">i</span><span class="o">++){</span>
+                    <span class="n">newCentroids</span><span class="o">[</span><span class="n">minCentroid</span><span class="o">][</span><span class="n">i</span><span class="o">]</span> <span class="o">+=</span> <span class="n">data</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+            <span class="o">}</span>
+            <span class="n">cCounts</span><span class="o">[</span><span class="n">minCentroid</span><span class="o">]</span> <span class="o">+=</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+</pre></div>
+</div>
+<p>After the map task is completed the cleanup function will write the output of the map task which will be sent to the reduce tasks. the following code segment in the cleanup method
+will iterate over all the centroids and write a key value pair where the key is the id of the centroid and  value is the sum of data assigned to this centroid, and the count of these data points.</p>
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">NUM_CENTROIDS</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="k">new</span> <span class="n">IntWritable</span><span class="o">(</span><span class="n">i</span><span class="o">),</span> <span class="k">new</span> <span class="n">CentroidCountWritable</span><span class="o">(</span><span class="n">newCentroids</span><span class="o">[</span><span class="n">i</span><span class="o">],</span> <span class="n">VECTOR_SIZE</span><span class="o">,</span> <span class="n">cCounts</span><span class="o">[</span><span class="n">i</span><span class="o">]));</span>
+<span class="o">}</span>
 </pre></div>
 </div>
 </div>
@@ -129,6 +242,27 @@ for k in 0 to (D-1) {
 output newCentroid to HDFS
 </pre></div>
 </div>
+<p>In the java implementation of the reducer class similar to the mapper class the setup method will perform the basic initialization functions of the class. after the setup is done the
+main reducer tasks will be handled in the reduce method.</p>
+<p>The reduce task will receive a key value pair which was outputted from the map functions. where the key is the id of the centroid and  value is the sum of data assigned to this centroid, and the count of these data points.
+during the reduce phase all the key value pairs with the same key will be merged to calculate the sum of all the data points that are assigned to each centroid and to calculate
+the total number of data points assigned to each centroid</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>public void reduce<span class="o">(</span>IntWritable key, Iterable&lt;CentroidCountWritable&gt; values, Context context<span class="o">)</span>
+                    throws IOException, InterruptedException <span class="o">{</span>
+            //1.1 reduce centroids
+            int <span class="nv">index</span> <span class="o">=</span> key.get<span class="o">()</span><span class="p">;</span>
+            <span class="k">for</span> <span class="o">(</span>CentroidCountWritable value : values<span class="o">)</span> <span class="o">{</span>
+                    double<span class="o">[]</span> <span class="nv">strData</span> <span class="o">=</span> value.getValueArrary<span class="o">()</span><span class="p">;</span>
+                    <span class="k">for</span> <span class="o">(</span>int <span class="nv">i</span> <span class="o">=</span> 0<span class="p">;</span> i &lt; VECTOR_SIZE<span class="p">;</span> i++<span class="o">)</span>
+                            newCentroids<span class="o">[</span>index<span class="o">][</span>i<span class="o">]</span> +<span class="o">=</span> strData<span class="o">[</span>i<span class="o">]</span><span class="p">;</span>
+                    cCounts<span class="o">[</span>index<span class="o">]</span> +<span class="o">=</span> value.getcCount<span class="o">()</span><span class="p">;</span>
+            <span class="o">}</span>
+    <span class="o">}</span>
+</pre></div>
+</div>
+<p>After the reducer is completed the cleanup method will compute the new centroids  using the sum of data points in each centroid and count of data points in each
+centroid ( these values are calculated in the reduce phase ). And then it will write the newly calculated centroid values to the centroid file.</p>
+<p>In the next iteration these newly created centroids will be read in by the map task when performing calculations.</p>
 </div>
 </div>
 <div class="section" id="compile-the-code">
