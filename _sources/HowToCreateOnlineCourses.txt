@@ -89,7 +89,7 @@ Click the name of the unit to edit it. You need to import the lessons to present
 	Video is the main part of the lesson. By clicking the "video" button, edX will create a video template. You can change the video name URL under the "Edit" window. edX allows each video to show its Closed Captioning transcript on the right side. The transcript should be a .srt file provided by the instructor.
 
 .. image:: images/edx/video.png
-   :height: 550px
+   :height: 500px
    :width: 720px
    :alt: video
    :align: center
