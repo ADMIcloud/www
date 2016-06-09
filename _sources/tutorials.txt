@@ -41,7 +41,7 @@ Tutorials
 .. _storm: http://admicloud.github.io/www/storm.html
 .. _wordcount: http://admicloud.github.io/www/wordcount.html
 .. _kmeans: http://admicloud.github.io/www/kmeans.html
-.. _video:
+.. _video: http://admicloud.github.io/www/HowToCreateOnlineCourses.html#recoding-videos
 .. _module: http://admicloud.github.io/www/HowToCreateOnlineCourses.html#use-modules-in-libraries
 .. _import: http://admicloud.github.io/www/HowToCreateOnlineCourses.html#import-export-your-course
 .. _course: http://admicloud.github.io/www/HowToCreateOnlineCourses.html#assemble-your-course-from-libraries
