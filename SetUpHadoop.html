@@ -139,14 +139,19 @@ Most commands print <span class="nb">help</span> when invoked w/o parameters.
 <div class="section" id="set-up-passphrase-less-ssh">
 <h2>Set up passphrase-less ssh<a class="headerlink" href="#set-up-passphrase-less-ssh" title="Permalink to this headline">¶</a></h2>
 <p>First, check your code with the following command:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ssh localhost
+<div class="highlight-bash"><div class="highlight"><pre><span></span>ssh localhost
 </pre></div>
 </div>
 <p>If you cannot ssh to the localhost without a passphrase, use the following commands to set up passphrase-less ssh:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> ~/.ssh
-$ ssh-keygen -t rsa
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/.ssh
+ssh-keygen -t rsa
 <span class="o">(</span>hit enter to all the options<span class="o">)</span>
-$ cat id_rsa.pub &gt;&gt; authorized_keys
+cat id_rsa.pub &gt;&gt; authorized_keys
+</pre></div>
+</div>
+<p>Then try to SSH again and if that&#8217;s successful hit exit to terminate that SSH connection</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>ssh localhost
+<span class="nb">exit</span>
 </pre></div>
 </div>
 </div>
@@ -211,7 +216,7 @@ $ cat id_rsa.pub &gt;&gt; authorized_keys
 <ol class="arabic simple">
 <li>Format the file system next.</li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs namenode -format
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs namenode -format
 </pre></div>
 </div>
 <p>If you can see information like this, the format process should be successful.</p>
@@ -224,15 +229,18 @@ SHUTDOWN_MSG: Shutting down NameNode at xxx.xxx.xxx.xxx
 <ol class="arabic simple" start="2">
 <li>Launch NameNode daemon and DataNode daemon</li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/sbin/start-dfs.sh
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/sbin/start-dfs.sh
 </pre></div>
 </div>
 <p>The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs).</p>
 <ol class="arabic simple" start="3">
 <li>Check if the daemons started successfully.</li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ jps
-xxxxx NameNode
+<div class="highlight-bash"><div class="highlight"><pre><span></span>jps
+</pre></div>
+</div>
+<p>You should see the following with xxxxx replaced to actual process IDs.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>xxxxx NameNode
 xxxxx SecondaryNameNode
 xxxxx DataNode
 xxxxx Jps
@@ -242,14 +250,17 @@ xxxxx Jps
 <li>Browse the web interface for the NameNode. By default this is at <a class="reference external" href="http://localhost:50070">http://localhost:50070</a></li>
 <li>Start ResourceManager daemon and NodeManager Daemon</li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/sbin/start-yarn.sh
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/sbin/start-yarn.sh
 </pre></div>
 </div>
 <ol class="arabic simple" start="6">
 <li>Verify the daemons started sucessfully:</li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ jps
-xxxxx NameNode
+<div class="highlight-bash"><div class="highlight"><pre><span></span>jps
+</pre></div>
+</div>
+<p>You should see the following with xxxxx replaced by actual process IDs.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>xxxxx NameNode
 xxxxx SecondaryNameNode
 xxxxx DataNode
 xxxxx NodeManager
@@ -257,48 +268,47 @@ xxxxx Jps
 xxxxx ResourceManager
 </pre></div>
 </div>
-<ol class="arabic simple" start="7">
-<li>Browse the web interface for the ResourceManager. By default this should be <a class="reference external" href="http://localhost:8088">http://localhost:8088</a></li>
-</ol>
+<p>7. Browse the web interface for the ResourceManager. By default this should be at <a class="reference external" href="http://localhost:8088">http://localhost:8088</a> or if you are
+using an Amazon VM instance replace localhost with the actual IP address.</p>
 </div>
 <div class="section" id="example">
 <h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li>Make the Hadoop Distributed File System (HDFS) directories.</li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -mkdir -p .
-$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -mkdir input
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -mkdir -p .
+<span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -mkdir input
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
 <li>Copy the input files into HDFS. In this example, we use files in $HADOOP_HOME/etc/hadoop/ directory as input files.</li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -put <span class="nv">$HADOOP_HOME</span>/etc/hadoop/* input
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -put <span class="nv">$HADOOP_HOME</span>/etc/hadoop/* input
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
 <li>Run the &#8220;grep&#8221; example provided.</li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar grep input output <span class="s1">&#39;hadoop&#39;</span>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.2.jar grep input output <span class="s1">&#39;hadoop&#39;</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">
 <li>View the output files on HDFS.</li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -cat output/*
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -cat output/*
 </pre></div>
 </div>
 <p>Or copy the output files to the local filesystem.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -get output output
-$ cat output/*
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -get output output
+cat output/*
 </pre></div>
 </div>
 </div>
 <div class="section" id="stop-daemons">
 <h2>Stop daemons<a class="headerlink" href="#stop-daemons" title="Permalink to this headline">¶</a></h2>
 <p>If you are done, you can stop all daemons by using this code:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/sbin/stop-dfs.sh
-$ <span class="nv">$HADOOP_HOME</span>/sbin/stop-yarn.sh
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/sbin/stop-dfs.sh
+<span class="nv">$HADOOP_HOME</span>/sbin/stop-yarn.sh
 </pre></div>
 </div>
 </div>
