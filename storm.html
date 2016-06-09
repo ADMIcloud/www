@@ -61,8 +61,8 @@
 <div class="section" id="wordcount-example">
 <h2>WordCount example<a class="headerlink" href="#wordcount-example" title="Permalink to this headline">¶</a></h2>
 <p>WordCount is a simple streaming example where Storm is used to keep track of the words and their counts streaming in. This example
-is included in the Storm distribution. The source code can be found in</p>
-<p>examples/storm-starter/src/jvm/storm/starter/WordCountTopology.java</p>
+is included in the Storm distribution. The source code can be found in the examples source code.</p>
+<p>examples/storm-example/src/main/java/admicloud/storm/wordcount/WordCountTopology.java</p>
 <p>In this example there are three processing units arranged in the graph.</p>
 <a class="reference internal image-reference" href="_images/storm_wordcount.png"><img alt="word count show case" class="align-center" src="_images/storm_wordcount.png" style="width: 520px; height: 300px;" /></a>
 <p>RandomSentenceSpout generates random sentences. SplitSentence splits these sentences into words, which are sent to the
@@ -111,11 +111,7 @@ WordCount bolt where the count is kept.</p>
 <div class="section" id="splitsentence-bolt">
 <h3>SplitSentence Bolt<a class="headerlink" href="#splitsentence-bolt" title="Permalink to this headline">¶</a></h3>
 <p>Receives sentences and splits them into words. Words are emitted to the WordCount bolt.</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">SplitSentence</span> <span class="kd">extends</span> <span class="n">ShellBolt</span> <span class="kd">implements</span> <span class="n">IRichBolt</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="nf">SplitSentence</span><span class="o">()</span> <span class="o">{</span>
-      <span class="kd">super</span><span class="o">(</span><span class="s">&quot;python&quot;</span><span class="o">,</span> <span class="s">&quot;splitsentence.py&quot;</span><span class="o">);</span>
-    <span class="o">}</span>
-
+<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">SplitSentence</span> <span class="kd">extends</span> <span class="n">BaseBasicBolt</span> <span class="o">{</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">declareOutputFields</span><span class="o">(</span><span class="n">OutputFieldsDeclarer</span> <span class="n">declarer</span><span class="o">)</span> <span class="o">{</span>
       <span class="n">declarer</span><span class="o">.</span><span class="na">declare</span><span class="o">(</span><span class="k">new</span> <span class="n">Fields</span><span class="o">(</span><span class="s">&quot;word&quot;</span><span class="o">));</span>
@@ -125,22 +121,17 @@ WordCount bolt where the count is kept.</p>
     <span class="kd">public</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="nf">getComponentConfiguration</span><span class="o">()</span> <span class="o">{</span>
       <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
     <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="n">Tuple</span> <span class="n">tuple</span><span class="o">,</span> <span class="n">BasicOutputCollector</span> <span class="n">basicOutputCollector</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">String</span> <span class="n">sentence</span> <span class="o">=</span> <span class="n">tuple</span><span class="o">.</span><span class="na">getStringByField</span><span class="o">(</span><span class="s">&quot;sentence&quot;</span><span class="o">);</span>
+      <span class="n">String</span> <span class="n">words</span><span class="o">[]</span> <span class="o">=</span> <span class="n">sentence</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">);</span>
+      <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">w</span> <span class="o">:</span> <span class="n">words</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">basicOutputCollector</span><span class="o">.</span><span class="na">emit</span><span class="o">(</span><span class="k">new</span> <span class="n">Values</span><span class="o">(</span><span class="n">w</span><span class="o">));</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
 <span class="o">}</span>
 </pre></div>
 </div>
-<p>The above class uses a python file to split the sentences.</p>
-<div class="highlight-java"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">storm</span>
-
-<span class="kd">class</span> <span class="nf">SplitSentenceBolt</span><span class="o">(</span><span class="n">storm</span><span class="o">.</span><span class="na">BasicBolt</span><span class="o">):</span>
-    <span class="n">def</span> <span class="nf">process</span><span class="o">(</span><span class="n">self</span><span class="o">,</span> <span class="n">tup</span><span class="o">):</span>
-        <span class="n">words</span> <span class="o">=</span> <span class="n">tup</span><span class="o">.</span><span class="na">values</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">split</span><span class="o">(</span><span class="s">&quot; &quot;</span><span class="o">)</span>
-        <span class="k">for</span> <span class="n">word</span> <span class="n">in</span> <span class="n">words</span><span class="o">:</span>
-          <span class="n">storm</span><span class="o">.</span><span class="na">emit</span><span class="o">([</span><span class="n">word</span><span class="o">])</span>
-
-<span class="n">SplitSentenceBolt</span><span class="o">().</span><span class="na">run</span><span class="o">()</span>
-</pre></div>
-</div>
-<p>It will be a good exercise to change the source code to pure Java.</p>
 </div>
 <div class="section" id="wordcount-bolt">
 <h3>WordCount Bolt<a class="headerlink" href="#wordcount-bolt" title="Permalink to this headline">¶</a></h3>
@@ -197,8 +188,8 @@ WordCount bolt where the count is kept.</p>
 <div class="section" id="storm-setup">
 <h2>Storm Setup<a class="headerlink" href="#storm-setup" title="Permalink to this headline">¶</a></h2>
 <p>Now let&#8217;s look at how to set up a Storm Cluster in your local machine. A Storm cluster needs to have Apache ZooKeeper running.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://mirrors.ibiblio.org/apache/storm/apache-storm-0.10.1/apache-storm-0.10.1.tar.gz
-tar -xvf apache-storm-0.10.1.tar.gz
+<div class="highlight-bash"><div class="highlight"><pre><span></span>wget http://ftp.wayne.edu/apache/storm/apache-storm-1.0.1/apache-storm-1.0.1.tar.gz
+tar -xvf apache-storm-1.0.1.tar.gz
 </pre></div>
 </div>
 <div class="section" id="download-and-start-zookeeper">
@@ -213,7 +204,7 @@ cp conf/zoo_sample.cfg conf/zoo.cfg
 </div>
 <div class="section" id="start-storm-cluster-on-local-machine">
 <h3>Start Storm Cluster on Local machine<a class="headerlink" href="#start-storm-cluster-on-local-machine" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ../apache-storm-0.10.1
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> apache-storm-1.0.1
 </pre></div>
 </div>
 <p>In one terminal, start the nimbus server.</p>
@@ -234,10 +225,14 @@ cp conf/zoo_sample.cfg conf/zoo.cfg
 </div>
 <div class="section" id="run-the-example-wordcount">
 <h3>Run the example WordCount<a class="headerlink" href="#run-the-example-wordcount" title="Permalink to this headline">¶</a></h3>
-<p>Now open another terminal to run a Storm example WordCount.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>./bin/storm jar examples/storm-starter/storm-starter-topologies-0.10.1.jar storm.starter.WordCountTopology WordCount
+<p>Now open another terminal to run the Storm example WordCount.</p>
+<p>First you need to build it</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/ADMIcloud/examples.git
+<span class="nb">cd</span> examples/storm-example
+mvn clean install
 </pre></div>
 </div>
+<p>This will build the jar file inside target folder.</p>
 <p>You can view the topology by going to the web browser.</p>
 <p><a class="reference external" href="http://localhost:8080/index.html">http://localhost:8080/index.html</a></p>
 <p>To kill the topology, use the following command:</p>
@@ -289,7 +284,7 @@ cp conf/zoo_sample.cfg conf/zoo.cfg
     </div>
     <div class="footer" role="contentinfo">
         &copy; Copyright 2016, DSC.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1+.
     </div>
   </body>
 </html>
