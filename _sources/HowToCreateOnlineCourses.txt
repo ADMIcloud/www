@@ -3,16 +3,15 @@ How to Create Online Courses Using edX
 
 edX is a massive open online course (MOOC) provider. It hosts online university-level courses in a wide range of disciplines for a worldwide student body, including some courses at no charge. This tutorial will list the steps for creating an online course.
 
-Recoding videos
-----------------
+1. Recoding videos
+------------------
 
-Before getting started, you need to record your course videos using a third-party tool like `Microsoft Office Mix`_ or `Adobe Presenter`_.
+Before getting started, you need to record your course videos using a third-party tool like Microsoft 365 or Adobe.
 
-.. _`Microsoft Office Mix`: https://mix.office.com/en-us/tutorials
-.. _`Adobe Presenter`: http://www.adobe.com/products/presenter.html
+2. Getting Started with edX
+---------------------------
 
-Getting Started with edX
-------------------------
+For the instructors, they should use Content Management System (instructor view) to create the courses for student. The url of CMS is: http://cloudmooc2.soic.indiana.edu:18010.
 
 In order to use the edX platform, the user should create an account first. As the figure below shows, simply fill in the form and you will receive a registration verification email. Replace "localhost" in the address provided by the email to "cloudmooc2.soic.indiana.edu:18010" (the CMS address of edX) and log into the edX CMS (studio) system.
 
@@ -22,8 +21,8 @@ In order to use the edX platform, the user should create an account first. As th
    :alt: register
    :align: center
 
-Create Your First Course
-------------------------
+3. Create Your First Course
+---------------------------
 
 .. image:: images/edx/home.png
    :height: 300px
@@ -57,8 +56,8 @@ What's more, you may delete this section using the "Trash" button in the upper r
    :alt: section
    :align: center
 
-Create a New Lesson
--------------------
+4. Create a New Lesson
+----------------------
 
 In the subsection created earlier, create a new unit for the lesson. The outline should be as follows:
 
@@ -102,8 +101,8 @@ Click the name of the unit to edit it. You need to import the lessons to present
    :alt: video
    :align: center
 
-Import/Export Your Course
--------------------------
+5. Import/Export Your Course
+----------------------------
 
 edX provides an easy way to migrate courses between edX platforms. This function is in "Tools" at the header of the CMS.
 
@@ -126,8 +125,8 @@ edX provides an easy way to migrate courses between edX platforms. This function
    :align: center
 
 
-Create Your Library
--------------------
+6. Create Your Library
+----------------------
 
 The library in edX is a tool for users who need to reuse course modules which already exist. First ensure that your courses can access the direct library in "Settings", then create a link to the Xblock already stored in the library.
 
@@ -143,8 +142,8 @@ Libraries provide three types of Xblock: HTML, Problem, Video. The descriptions 
 
 Like courses, libraries have "import" and "export" functions as well. The operations are also the same as in importing/exporting courses.
 
-Use Modules in Libraries
-------------------------
+7. Use Modules in Libraries
+---------------------------
 
 You should first make the course accessible to the library from which you want to import course modules. Click on the course, then go to "Settings" and click "Advanced Settings".
 
@@ -194,8 +193,8 @@ After clicking "Save" and assuming you input a correct name, the Xblock should a
 
 You can now click "View" to check the Xblock in the library. After publishing this unit to LMS, LMS will show the Xblock in the library automatically.
 
-Assemble Your Course From Libraries
------------------------------------
+8. Assemble Your Course From Libraries
+--------------------------------------
 
 You can use the instructions above to create the structure of a course. After this, in one unit (lesson), you should be able to import course modules from the libraries.
 
@@ -216,7 +215,9 @@ Click "Publish" button to publish this lesson to students, allowing them to see 
    :align: center
 
 .. image:: images/edx/LMS2.png
-   :height: 300px
+   :height: 270px
    :width: 700px
    :alt: LMS2
    :align: center
+
+For the students, the edX homepage url is http://cloudmooc2.soic.indiana.edu, which is called Learning Management System (student view).
