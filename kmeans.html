@@ -142,11 +142,11 @@ mvn clean install
 <div class="section" id="run-the-code">
 <h2>Run the Code<a class="headerlink" href="#run-the-code" title="Permalink to this headline">¶</a></h2>
 <p>The usage is:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hadoop jar target/hadoop-kmeans-1.0.jar admicloud.hadoop.kmeans.KmeansMain &lt;num Of Data Points&gt; &lt;size of a vector&gt; &lt;num of Centroids&gt; &lt;number of map tasks&gt; &lt;number of iterations&gt;
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hadoop jar target/hadoop-kmeans-1.0-jar-with-dependencies.jar admicloud.hadoop.kmeans.KmeansMain &lt;num Of Data Points&gt; &lt;size of a vector&gt; &lt;num of Centroids&gt; &lt;number of map tasks&gt; &lt;number of iterations&gt;
 </pre></div>
 </div>
 <p>For example</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hadoop jar target/hadoop-kmeans-1.0.jar admicloud.hadoop.kmeans.KmeansMain <span class="m">100</span> <span class="m">3</span> <span class="m">10</span> <span class="m">2</span> 3
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hadoop jar target/hadoop-kmeans-1.0-jar-with-dependencies.jar admicloud.hadoop.kmeans.KmeansMain <span class="m">100</span> <span class="m">3</span> <span class="m">10</span> <span class="m">2</span> 3
 </pre></div>
 </div>
 <p>Hadoop K-means wil firstly generate 100 data points, each a 3-D vector. The data will be saved to HDFS. It then generates 10 initial centroids and writes them to HDFS. For every iteration, K-means loads centroids and reads key-value pairs to do computation, then writes new centroids back to HDFS.</p>
