@@ -21,9 +21,9 @@ WordCount example
 ------------------
 
 WordCount is a simple streaming example where Storm is used to keep track of the words and their counts streaming in. This example
-is included in the Storm distribution. The source code can be found in
+is included in the Storm distribution. The source code can be found in the examples source code.
 
-examples/storm-starter/src/jvm/storm/starter/WordCountTopology.java
+examples/storm-example/src/main/java/admicloud/storm/wordcount/WordCountTopology.java
 
 In this example there are three processing units arranged in the graph.
 
@@ -89,11 +89,7 @@ Receives sentences and splits them into words. Words are emitted to the WordCoun
 
 .. code-block:: java
 
-    public static class SplitSentence extends ShellBolt implements IRichBolt {
-        public SplitSentence() {
-          super("python", "splitsentence.py");
-        }
-
+    public static class SplitSentence extends BaseBasicBolt {
         @Override
         public void declareOutputFields(OutputFieldsDeclarer declarer) {
           declarer.declare(new Fields("word"));
@@ -103,23 +99,15 @@ Receives sentences and splits them into words. Words are emitted to the WordCoun
         public Map<String, Object> getComponentConfiguration() {
           return null;
         }
+
+        public void execute(Tuple tuple, BasicOutputCollector basicOutputCollector) {
+          String sentence = tuple.getStringByField("sentence");
+          String words[] = sentence.split(" ");
+          for (String w : words) {
+            basicOutputCollector.emit(new Values(w));
+          }
+        }
     }
-
-The above class uses a python file to split the sentences.
-
-.. code-block:: java
-
-    import storm
-
-    class SplitSentenceBolt(storm.BasicBolt):
-        def process(self, tup):
-            words = tup.values[0].split(" ")
-            for word in words:
-              storm.emit([word])
-
-    SplitSentenceBolt().run()
-
-It will be a good exercise to change the source code to pure Java.
 
 --------------
 WordCount Bolt
@@ -185,8 +173,8 @@ Now let's look at how to set up a Storm Cluster in your local machine. A Storm c
 
 .. code-block:: bash
 
-    wget http://mirrors.ibiblio.org/apache/storm/apache-storm-0.10.1/apache-storm-0.10.1.tar.gz
-    tar -xvf apache-storm-0.10.1.tar.gz
+    wget http://ftp.wayne.edu/apache/storm/apache-storm-1.0.1/apache-storm-1.0.1.tar.gz
+    tar -xvf apache-storm-1.0.1.tar.gz
 
 ----------------------------
 Download and start ZooKeeper
@@ -206,7 +194,7 @@ Start Storm Cluster on Local machine
 
 .. code-block:: bash
 
-    cd ../apache-storm-0.10.1
+    cd apache-storm-1.0.1
 
 In one terminal, start the nimbus server.
 
@@ -236,11 +224,21 @@ to view the Storm cluster.
 Run the example WordCount
 --------------------------
 
-Now open another terminal to run a Storm example WordCount.
+Now open another terminal to run the Storm example WordCount.
+
+First you need to build it
 
 .. code-block:: bash
 
-    ./bin/storm jar examples/storm-starter/storm-starter-topologies-0.10.1.jar storm.starter.WordCountTopology WordCount
+     git clone https://github.com/ADMIcloud/examples.git
+     cd examples/storm-example
+     mvn clean install
+
+This will build the jar file inside target folder.
+
+.. code-block:: bash
+    cd ../apache-storm-1.0.1
+    ./bin/storm jar ../examples/storm-example/target/storm-example-1.0-jar-with-dependencies.jar admicloud.storm.wordcount.WordCountTopology WordCount
 
 You can view the topology by going to the web browser.
 
