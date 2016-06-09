@@ -51,6 +51,8 @@ Now run the following command in order to make sure the changes are applied. You
     source ~/.bashrc
     java -version
 
+You should see the following output.
+
 .. code-block:: bash
 
     java version "1.8.0_91"
@@ -81,6 +83,30 @@ Now run the following command in order to make sure the changes are applied. You
 
     cd ~/software/hadoop-2.7.2
     ./bin/hadoop
+
+You should see the following output.
+
+.. code-block:: bash
+
+    Usage: hadoop [--config confdir] [COMMAND | CLASSNAME]
+      CLASSNAME            run the class named CLASSNAME
+     or
+      where COMMAND is one of:
+      fs                   run a generic filesystem user client
+      version              print the version
+      jar <jar>            run a jar file
+                           note: please use "yarn jar" to launch
+                                 YARN applications, not this command.
+      checknative [-a|-h]  check native hadoop and compression libraries availability
+      distcp <srcurl> <desturl> copy file or directories recursively
+      archive -archiveName NAME -p <parent path> <src>* <dest> create a hadoop archive
+      classpath            prints the class path needed to get the
+      credential           interact with credential providers
+                           Hadoop jar and the required libraries
+      daemonlog            get/set the log level for each daemon
+      trace                view and modify Hadoop tracing settings
+
+    Most commands print help when invoked w/o parameters.
 
 
 Set up passphrase-less ssh

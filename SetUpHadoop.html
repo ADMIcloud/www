@@ -83,6 +83,7 @@ vim ~/.bashrc
 java -version
 </pre></div>
 </div>
+<p>You should see the following output.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>java version <span class="s2">&quot;1.8.0_91&quot;</span>
 Java<span class="o">(</span>TM<span class="o">)</span> SE Runtime Environment <span class="o">(</span>build 1.8.0_91-b14<span class="o">)</span>
 Java HotSpot<span class="o">(</span>TM<span class="o">)</span> 64-Bit Server VM <span class="o">(</span>build 25.91-b14, mixed mode<span class="o">)</span>
@@ -110,6 +111,28 @@ tar -xzvf hadoop-2.7.2.tar.gz
 </ol>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/software/hadoop-2.7.2
 ./bin/hadoop
+</pre></div>
+</div>
+<p>You should see the following output.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>Usage: hadoop <span class="o">[</span>--config confdir<span class="o">]</span> <span class="o">[</span>COMMAND <span class="p">|</span> CLASSNAME<span class="o">]</span>
+  CLASSNAME            run the class named CLASSNAME
+ or
+  where COMMAND is one of:
+  fs                   run a generic filesystem user client
+  version              print the version
+  jar &lt;jar&gt;            run a jar file
+                       note: please use <span class="s2">&quot;yarn jar&quot;</span> to launch
+                             YARN applications, not this command.
+  checknative <span class="o">[</span>-a<span class="p">|</span>-h<span class="o">]</span>  check native hadoop and compression libraries availability
+  distcp &lt;srcurl&gt; &lt;desturl&gt; copy file or directories recursively
+  archive -archiveName NAME -p &lt;parent path&gt; &lt;src&gt;* &lt;dest&gt; create a hadoop archive
+  classpath            prints the class path needed to get the
+  credential           interact with credential providers
+                       Hadoop jar and the required libraries
+  daemonlog            get/set the log level <span class="k">for</span> each daemon
+  trace                view and modify Hadoop tracing settings
+
+Most commands print <span class="nb">help</span> when invoked w/o parameters.
 </pre></div>
 </div>
 </div>
