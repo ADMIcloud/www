@@ -5,26 +5,29 @@ Tutorials
    :height: 75px
    :width: 135px
    :align: middle
+   :target: http://admicloud.github.io/www/HowToCreateOnlineCourses.html
 
 .. |logo2| image:: images/cover/amazon.png
    :height: 75px
    :width: 135px
    :align: middle
+   :target: http://admicloud.github.io/www/HowToUseAmazonCloud.html
 
 .. |logo3| image:: images/cover/hadoop.jpg
    :height: 75px
    :width: 135px
    :align: middle
+   :target: http://admicloud.github.io/www/SetUpHadoop.html
 
 .. |logo4| image:: images/cover/storm.png
    :height: 75px
    :width: 135px
    :align: middle
+   :target: http://admicloud.github.io/www/storm.html
 
 +--------------------+--+-------------------+--+-------------------+--+-------------------+
 | |logo1|            |  | |logo2|           |  | |logo3|           |  | |logo4|           |
 +--------------------+--+-------------------+--+-------------------+--+-------------------+
-| - edx_             |  | amazon_           |  |                   |  | storm_            |
 |                    |  |                   |  |                   |  |                   |
 | - video_           |  |                   |  | - `setup hadoop`_ |  |                   |
 | - module_          |  |                   |  | - wordcount_      |  |                   |
