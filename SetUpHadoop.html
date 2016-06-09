@@ -61,9 +61,8 @@
 Extract the archive using the following steps:</p>
 </li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span>
-mkdir software
-<span class="nb">cd</span> software
+<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir ~/software
+<span class="nb">cd</span> ~/software
 wget --no-cookies --no-check-certificate --header <span class="s2">&quot;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&quot;</span> <span class="s2">&quot;http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.tar.gz&quot;</span>
 tar xzf jdk-8u91-linux-x64.tar.gz
 </pre></div>
@@ -109,7 +108,8 @@ tar -xzvf hadoop-2.7.2.tar.gz
 <ol class="arabic simple" start="4">
 <li>Make sure everything was done properly, then execute the following command from the Hadoop folder that we just extracted</li>
 </ol>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>./bin/hadoop
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/software/hadoop-2.7.2
+./bin/hadoop
 </pre></div>
 </div>
 </div>
@@ -272,7 +272,7 @@ $ cat output/*
 </div>
 </div>
 <div class="section" id="stop-daemons">
-<h2>Stop daemons.<a class="headerlink" href="#stop-daemons" title="Permalink to this headline">¶</a></h2>
+<h2>Stop daemons<a class="headerlink" href="#stop-daemons" title="Permalink to this headline">¶</a></h2>
 <p>If you are done, you can stop all daemons by using this code:</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nv">$HADOOP_HOME</span>/sbin/stop-dfs.sh
 $ <span class="nv">$HADOOP_HOME</span>/sbin/stop-yarn.sh

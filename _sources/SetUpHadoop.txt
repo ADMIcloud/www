@@ -22,9 +22,8 @@ Preparation
 
 .. code-block:: bash
 
-    cd
-    mkdir software
-    cd software
+    mkdir ~/software
+    cd ~/software
     wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u91-b14/jdk-8u91-linux-x64.tar.gz"
     tar xzf jdk-8u91-linux-x64.tar.gz
 
@@ -80,11 +79,12 @@ Now run the following command in order to make sure the changes are applied. You
 
 .. code-block:: bash
 
+    cd ~/software/hadoop-2.7.2
     ./bin/hadoop
 
 
 Set up passphrase-less ssh
----------------------------
+--------------------------
 
 First, check your code with the following command:
 
@@ -103,7 +103,7 @@ If you cannot ssh to the localhost without a passphrase, use the following comma
 
 
 Configuration
----------------------------
+-------------
 
 Modify the following files, replacing $HADOOP_HOME with your own Hadoop home path.
 
@@ -174,7 +174,7 @@ $HADOOP_HOME/etc/hadoop/yarn-site.xml
 
 
 Start Daemons
----------------------------
+-------------
 
 1. Format the file system next.
 
@@ -238,7 +238,7 @@ The log is in the $HADOOP_LOG_DIR directory (defaults: $HADOOP_HOME/logs).
 7. Browse the web interface for the ResourceManager. By default this should be http://localhost:8088
 
 Example
----------------------------
+-------
 
 1. Make the Hadoop Distributed File System (HDFS) directories.
 
@@ -277,8 +277,8 @@ Or copy the output files to the local filesystem.
     $ cat output/*
 
 
-Stop daemons.
----------------------------
+Stop daemons
+------------
 If you are done, you can stop all daemons by using this code:
 
 .. code-block:: bash
