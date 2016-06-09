@@ -129,4 +129,17 @@ View the Results
 .. code-block:: bash
 
     $HADOOP_PREFIX/bin/hdfs dfs -ls -R kmeans
+    kmeans/centroids
+    kmeans/centroids/centroids_0
+    kmeans/centroids/centroids_1
+    kmeans/centroids/centroids_2
+    kmeans/centroids/centroids_3
+    kmeans/data
+    kmeans/data/data_0
+    kmeans/data/data_1
+    kmeans/out
+    kmeans/out/_SUCCESS
+    kmeans/out/part-r-00000
 
+
+In this example, data_0 and data_1 are data files. The data in file centroids_0 is the initial centroids. The data in file centroids_3 is the final result after 3 iterations.
