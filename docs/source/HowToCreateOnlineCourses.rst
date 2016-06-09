@@ -6,7 +6,10 @@ edX is a massive open online course (MOOC) provider. It hosts online university-
 1. Recoding videos
 ------------------
 
-Before getting started, you need to record your course videos using a third-party tool like Microsoft 365 or Adobe.
+Before getting started, you need to record your course videos using a third-party tool like `Microsoft Office Mix`_ or `Adobe Presenter`_.
+
+.. _`Microsoft Office Mix`: https://mix.office.com/en-us/tutorials
+.. _`Adobe Presenter`: http://www.adobe.com/products/presenter.html
 
 2. Getting Started with edX
 ---------------------------
