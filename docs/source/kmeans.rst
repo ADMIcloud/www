@@ -32,7 +32,7 @@ assigned to which partition.
     4. Repeat steps 2 and 3 until data points do not change cluster assignments, meaning their centroids are set.
 
 
-Pseudo Code
+Pseudo Code and Java Code 
 ------------------
 Denote:
 
