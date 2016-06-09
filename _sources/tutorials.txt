@@ -23,7 +23,7 @@ Tutorials
    :height: 75px
    :width: 135px
    :align: middle
-   "target: http://admicloud.github.io/www/storm.html
+   :target: http://admicloud.github.io/www/storm.html
 
 +--------------------+--+-------------------+--+-------------------+--+-------------------+
 | |logo1|            |  | |logo2|           |  | |logo3|           |  | |logo4|           |
