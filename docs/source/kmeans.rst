@@ -105,19 +105,20 @@ The code is available at https://github.com/ADMIcloud/examples. Download the cod
     cd examples/hadoop-kmeans
     mvn clean install
 
+
 Run the Code
 ------------
 The usage is:
 
 .. code-block:: bash
 
-    $HADOOP_HOME/bin/hadoop jar target/hadoop-kmeans-1.0-jar-with-dependencies.jar admicloud.hadoop.kmeans.KmeansMain <num Of Data Points> <size of a vector> <num of Centroids> <number of map tasks> <number of iterations>
+    $HADOOP_PREFIX/bin/hadoop jar target/hadoop-kmeans-1.0-jar-with-dependencies.jar admicloud.hadoop.kmeans.KmeansMain <num Of Data Points> <size of a vector> <num of Centroids> <number of map tasks> <number of iterations>
 
 For example
 
 .. code-block:: bash
 
-    $HADOOP_HOME/bin/hadoop jar target/hadoop-kmeans-1.0-jar-with-dependencies.jar admicloud.hadoop.kmeans.KmeansMain 100 3 10 2 3
+    $HADOOP_PREFIX/bin/hadoop jar target/hadoop-kmeans-1.0-jar-with-dependencies.jar admicloud.hadoop.kmeans.KmeansMain 100 3 10 2 3
 
 Hadoop K-means wil firstly generate 100 data points, each a 3-D vector. The data will be saved to HDFS. It then generates 10 initial centroids and writes them to HDFS. For every iteration, K-means loads centroids and reads key-value pairs to do computation, then writes new centroids back to HDFS.
 
@@ -127,5 +128,5 @@ View the Results
 
 .. code-block:: bash
 
-    $HADOOP_HOME/bin/hdfs dfs -ls -R kmeans
+    $HADOOP_PREFIX/bin/hdfs dfs -ls -R kmeans
 
