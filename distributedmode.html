@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Distributed Mode &mdash; ADMICloud 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootswatch-3.3.6/united/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+    <link rel="top" title="ADMICloud 1.0 documentation" href="index.html" />
+    <link rel="up" title="Prerequisites" href="prerequisites.html" />
+    <link rel="prev" title="Pseudo-distributed Mode" href="pseudodistributedmode.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  </head>
+  <body role="document">
+
+  <div id="navbar" class="navbar navbar-inverse navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          ADMICloud</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-one-friday-june-10">Day one (Friday June 10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-two-saturday-june-11">Day Two (Saturday June 11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-three-sunday-june-12">Day Three (Sunday June 12)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="members.html">Members</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="members.html#judy-qiu">Judy Qiu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#linda-hayden">Linda Hayden</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#edward-clay-swindell">Edward (Clay) Swindell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#saliya-ekanayake">Saliya Ekanayake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#andrew-j-younge">Andrew J. Younge</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="prerequisites.html">Prerequisites</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="localmode.html">Local Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pseudodistributedmode.html">Pseudo-distributed Mode</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Distributed Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-1-wordcount-on-hadoop">Ex 1: Wordcount on Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-2-k-means-clustering-on-hadoop">Ex 2: K-Means clustering on Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-3-wordcount-on-storm">Ex 3: WordCount on Storm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="software.html#hadoop">Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#apache-storm">Apache Storm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#amazon-elastic-compute-cloud-ec2">Amazon Elastic Compute Cloud (EC2)</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Distributed Mode</a></li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="pseudodistributedmode.html" title="Previous Chapter: Pseudo-distributed Mode"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Pseudo-distri...</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/distributedmode.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul class="globaltoc"
+><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="schedule.html">Schedule</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-one-friday-june-10">Day one (Friday June 10)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-two-saturday-june-11">Day Two (Saturday June 11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="schedule.html#day-three-sunday-june-12">Day Three (Sunday June 12)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="members.html">Members</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="members.html#judy-qiu">Judy Qiu</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#linda-hayden">Linda Hayden</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#edward-clay-swindell">Edward (Clay) Swindell</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#saliya-ekanayake">Saliya Ekanayake</a></li>
+<li class="toctree-l2"><a class="reference internal" href="members.html#andrew-j-younge">Andrew J. Younge</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="prerequisites.html">Prerequisites</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="localmode.html">Local Mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pseudodistributedmode.html">Pseudo-distributed Mode</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Distributed Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-1-wordcount-on-hadoop">Ex 1: Wordcount on Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-2-k-means-clustering-on-hadoop">Ex 2: K-Means clustering on Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials.html#ex-3-wordcount-on-storm">Ex 3: WordCount on Storm</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="software.html">Software</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="software.html#hadoop">Hadoop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#apache-storm">Apache Storm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="software.html#amazon-elastic-compute-cloud-ec2">Amazon Elastic Compute Cloud (EC2)</a></li>
+</ul>
+</li>
+</ul>
+
+</ul>
+
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="col-md-9 content">
+      
+  <div class="section" id="distributed-mode">
+<h1>Distributed Mode<a class="headerlink" href="#distributed-mode" title="Permalink to this headline">¶</a></h1>
+<p>We will use Amazon Web Serivices</p>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2016, DSC.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

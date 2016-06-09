@@ -57,6 +57,82 @@
 <h2>EC2 in the Cloud Workshop<a class="headerlink" href="#ec2-in-the-cloud-workshop" title="Permalink to this headline">¶</a></h2>
 <p>This workshop will rely extensively on the use of Amazon EC2 for computing services and deployed software. Specifically, all of the workshop software and tutorials have been built into a publicly available EC2 image for use not only in the workshop, but also afterwards. To speed up the workshop, VM instances have already been booted and prepared for you and login credentials will be distributed upon arrival.</p>
 </div>
+<div class="section" id="booting-your-first-instance-in-amazon-ec2">
+<h2>Booting your first instance in Amazon EC2<a class="headerlink" href="#booting-your-first-instance-in-amazon-ec2" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial shows you how to boot your first Amazon EC2 virtual machine instance. It is important that you have an AWS account to start with.</p>
+<ol class="arabic simple">
+<li>First, go to <a class="reference external" href="http://aws.amazon.com">http://aws.amazon.com</a> and click &#8220;Sign in to the Console&#8221; in the top right corner.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-1.png"><img alt="aws1" src="_images/aws-1.png" style="width: 800px;" /></a>
+</div>
+<ol class="arabic simple" start="2">
+<li>Once at the initial dashboard, we can look to stat launching our first instance. Click &#8220;Launch Instance&#8221; in the middle of the page.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-2.png"><img alt="aws2" src="_images/aws-2.png" style="width: 800px;" /></a>
+</div>
+<ol class="arabic simple" start="3">
+<li>Here, we can select our desired image from a group of base OS images. We recommend either the RHEL7 or Ubuntu 14.04 images.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-3.png"><img alt="aws3" src="_images/aws-3.png" style="width: 800px;" /></a>
+</div>
+<ol class="arabic simple" start="4">
+<li>Now we have to select an instance type. This defines how large our instance will be in terms of computing resources. However, we have to pay attention of what the cost of each instance type is, as the bigger the instance type, the more expensive it will be to use. For our purposes, a t1.micro instance will work fine and also will be part of the free tier.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-4.png"><img alt="aws4" src="_images/aws-4.png" style="width: 800px;" /></a>
+</div>
+<ol class="arabic simple" start="5">
+<li>Then, we need to review our instance details. Be sure you are satisfied with all settings before clicking the &#8220;Launch&#8221; button.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-5.png"><img alt="aws5" src="_images/aws-5.png" style="width: 800px;" /></a>
+</div>
+<ol class="arabic simple" start="6">
+<li>Before the instance can be loaded on the EC2, we need to specify which keypair we are going to use. If you already have a configured keypair, just select one to use. If not, you can create a new keypair and give it a name. This will also allow you to download your private .pem key, which you can use to SSH into the instance.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-6.png"><img alt="aws6" src="_images/aws-6.png" style="width: 800px;" /></a>
+</div>
+<ol class="arabic simple" start="7">
+<li>Once launched, the instance will initially be in a &#8220;Pending&#8221; state. This means the instance is being provisioned somewhere in the Amazon cloud.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-7.png"><img alt="aws7" src="_images/aws-7.png" style="width: 800px;" /></a>
+</div>
+<ol class="arabic simple" start="8">
+<li>Eventually, the image will change into a &#8220;Running&#8221; state. This means the instance has been created. However, you should note that this does notmean the intance is ready for use, as the OS still has to boot up within the instance. Luckily, Amazon&#8217;s instances are well tuned so boot up should only take a few seconds. Also note the public IP address given, as we need this to SSH to the instance. In our example here, this is 52.34.28.133.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-8.png"><img alt="aws8" src="_images/aws-8.png" style="width: 800px;" /></a>
+</div>
+<ol class="arabic simple" start="9">
+<li>Once the instance is in the running state and you&#8217;ve allowed a few seconds for the OS to boot, you can ssh into the instance. You will need to use your private .pem key, as shown below, with the user &#8220;ubuntu&#8221; and the IP address found above.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-9.png"><img alt="aws9" src="_images/aws-9.png" style="width: 500px;" /></a>
+</div>
+<ol class="arabic simple" start="10">
+<li>While the instance is running, we can manage the state within the AWS console if desired, This includes options like stopping or terminating the instance, reconfiguring the network, or attaching EBS storage to the instance.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-10.png"><img alt="aws10" src="_images/aws-10.png" style="width: 800px;" /></a>
+</div>
+<ol class="arabic simple" start="11">
+<li>When you are done using the instance, make sure to terminate it using the menu. This will stop you from being billed for leaving an instance running.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-11.png"><img alt="aws11" src="_images/aws-11.png" style="width: 500px;" /></a>
+</div>
+<ol class="arabic simple" start="12">
+<li>You should note that terminating your instance will destroy all changes you have made during the session. As such, you need to back up any data or it will be lost. You have a few options, but one of the most common options is to create a new snapshot image of the instance. This will preserve the filesystem and configuration, and allow you to boot more instances based on the snapshot at a later time. Other options for saving your data could include mounting a EBS volume, saving to S3, or copying your data to your own private machine.</li>
+</ol>
+<div class="figure">
+<a class="reference internal image-reference" href="_images/aws-12.png"><img alt="aws12" src="_images/aws-12.png" style="width: 500px;" /></a>
+</div>
+</div>
 <div class="section" id="logging-into-ec2-instance">
 <h2>Logging into EC2 Instance<a class="headerlink" href="#logging-into-ec2-instance" title="Permalink to this headline">¶</a></h2>
 <p>You will be assigned your own personal VM instance via a piece of paper. This will include two things: a  IP address and a unique password.  From here, you will log into the VM via SSH.</p>
