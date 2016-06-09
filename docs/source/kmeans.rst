@@ -47,6 +47,8 @@ Denote:
 The Main Method
 ------------------
 
+The tasks of the main class is to configure and run the job iteratively.
+
 .. code-block:: java
 
     generate N data points (D dimensions), write to HDFS
@@ -54,6 +56,79 @@ The Main Method
     for iterations{
         configure a job
         launch the job
+    }
+
+Now looking at the actual java implementation. The first step of the sample program is to generate a set of points. This is done using the following line in the main launch method. The actual method
+that is in the Utils.java class is also shown for reference. This method generates a set of data points and writes them into the folder specified. The method also takes in parameters to specify the number
+of files and number of data points that need to be generated. The data points are divided among the data files.
+
+.. code-block:: java
+
+    Utils.generateDataFiles(fs, dataDir,  numDataPoints, vectorSize, numFiles );
+
+    // generateDataFiles method from Utils.java
+    public static void generateDataFiles(FileSystem fs, Path dataDir, int numOfDataPoints, int vectorSize, int numFiles) throws IOException{
+		Random random = new Random();
+		int dataPerFile = numOfDataPoints / numFiles;
+		int remainder = numOfDataPoints % numFiles;
+		BufferedWriter br = null;
+		Path pt = null;
+		int dataThisFile = 0;
+		for(int i=0; i < numFiles; i++){
+			if(remainder > 0){
+				dataThisFile = dataPerFile + 1;
+				remainder -= 1;
+			}else{
+				dataThisFile = dataPerFile;
+			}
+
+			pt = new Path(KmeansConstants.DATA_DIR + "/data_"+i);
+			br = new BufferedWriter(new OutputStreamWriter(fs.create(pt,true)));
+			String aData="";
+			for(int k = 0; k < dataThisFile; k++){
+				aData = "";
+				for(int j = 0; j < vectorSize; j++){
+					int aElement = random.nextInt(1000);
+					if( j != vectorSize-1 ){
+						aData += aElement + "\t";
+					}
+					else{
+						aData += aElement+ "\n";
+					}
+				}
+				br.append(aData);
+			}
+			br.close();
+			System.out.println("wrote to "+pt.getName());
+		}
+	}
+
+The next step is to generate a set of centroids. As it was mentioned in the description K-Means needs a set of initial centroids. The "generateInitialCentroids" method in the Utils class
+will generate a set of random centroids.
+
+.. code-block:: java
+
+    Utils.generateInitialCentroids(fs, cDir, numCentroids, vectorSize);
+
+After the initialization steps are completed the main class will run a set of map reduce jobs iteratively. The number of iterations are specified by the user.
+The following code block will at each iteration configure a job and run it.
+
+.. code-block:: java
+
+    for(int iter = 0; iter < numIteration; iter++){
+        //delete output directory if existed
+        if( fs.exists(outDir)){
+            fs.delete(outDir, true);
+        }
+
+        job = configureAJob(configuration, iter, vectorSize, numCentroids,dataDir, outDir );
+
+        try {
+            job.waitForCompletion(true);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println("---------------------------| Iteration #" +iter + " Finished |-------------------------------");
     }
 
 
@@ -69,6 +144,55 @@ The Mapper
     find the nearest centroid Cj for the data point Vi
     Context.write(j, <Vi, 1>)
 
+Now looking at the java implementaion of the mapper class. First the setup method will be called to initialize the mapper class. In the setup method
+all the needed configurations will be loaded. most importantly the set of centroids that are saved in the centroids file will be loaded into an array.
+The main map task is handled in the map function.
+
+In the map function it reads in each line from the data files and calculates distances between the current data point and each centroid to determine the closest centroid
+to the data point. The index of the closest centroid is stored in the variable "minCentroid" for later use. The values in the "newCentroids" array is updated after finding the closest
+centroid. "newCentroids" array contains the sum of all data points that are closest to each centroid. For example newCentroids[0] contains the sum of all data points that are closest to
+centroid 0.
+
+.. code-block:: java
+
+    public void map(LongWritable key, Text val, Context context)
+			throws IOException, InterruptedException {
+
+		//1.2 construct the input data point
+		String valStr[] = val.toString().split("\t");
+		double data[] = new double[VECTOR_SIZE];
+		for (int i = 0; i < VECTOR_SIZE; i++)
+			data[i] = (double) Integer.parseInt(valStr[i]);
+
+		//1.3 find nearest centroid for the input data point.
+		double distance = 0;
+		int minCentroid = 0;
+		double minDistance=0;
+		for (int i = 0; i < NUM_CENTROIDS; i++) {
+			distance = Utils.getEuclidean2(centroids[i], data, VECTOR_SIZE);
+			if(i == 0){
+				minDistance = distance;
+				minCentroid = i;
+			}
+			else if (distance < minDistance) {
+				minDistance = distance;
+				minCentroid = i;
+			}
+		}
+		for (int i = 0; i < VECTOR_SIZE; i++){
+			newCentroids[minCentroid][i] += data[i];
+		}
+		cCounts[minCentroid] += 1;
+	}
+
+After the map task is completed the cleanup function will write the output of the map task which will be sent to the reduce tasks. the following code segment in the cleanup method
+will iterate over all the centroids and write a key value pair where the key is the id of the centroid and  value is the sum of data assigned to this centroid, and the count of these data points.
+
+.. code-block:: java
+
+    for (int i = 0; i < NUM_CENTROIDS; i++) {
+        context.write(new IntWritable(i), new CentroidCountWritable(newCentroids[i], VECTOR_SIZE, cCounts[i]));
+    }
 
 -----------
 The Reducer
@@ -92,6 +216,31 @@ The Reducer
 
     output newCentroid to HDFS
 
+In the java implementation of the reducer class similar to the mapper class the setup method will perform the basic initialization functions of the class. after the setup is done the
+main reducer tasks will be handled in the reduce method.
+
+The reduce task will receive a key value pair which was outputted from the map functions. where the key is the id of the centroid and  value is the sum of data assigned to this centroid, and the count of these data points.
+during the reduce phase all the key value pairs with the same key will be merged to calculate the sum of all the data points that are assigned to each centroid and to calculate
+the total number of data points assigned to each centroid
+
+.. code-block:: bash
+
+    public void reduce(IntWritable key, Iterable<CentroidCountWritable> values, Context context)
+			throws IOException, InterruptedException {
+		//1.1 reduce centroids
+		int index = key.get();
+		for (CentroidCountWritable value : values) {
+			double[] strData = value.getValueArrary();
+			for (int i = 0; i < VECTOR_SIZE; i++)
+				newCentroids[index][i] += strData[i];
+			cCounts[index] += value.getcCount();
+		}
+	}
+
+After the reducer is completed the cleanup method will compute the new centroids  using the sum of data points in each centroid and count of data points in each
+centroid ( these values are calculated in the reduce phase ). And then it will write the newly calculated centroid values to the centroid file.
+
+In the next iteration these newly created centroids will be read in by the map task when performing calculations.
 
 
 Compile the Code
