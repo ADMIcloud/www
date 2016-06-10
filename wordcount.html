@@ -209,44 +209,65 @@
 </div>
 <div class="section" id="compiling-the-code">
 <h2>Compiling the Code<a class="headerlink" href="#compiling-the-code" title="Permalink to this headline">¶</a></h2>
+<p>The code for Word Count and other examples are provided in the GitHub repository at <a class="reference external" href="https://github.com/ADMIcloud/examples">https://github.com/ADMIcloud/examples</a>.
+If you haven&#8217;t already done so, please take a copy of this to your instance. This could either be done by making a
+clone or downloading a zip archive of the code.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div><strong>Git Tip</strong></div></blockquote>
+<p class="last">A good introduction to Git and GitHub is available at <a class="reference external" href="https://try.github.io/levels/1/challenges/1">https://try.github.io/levels/1/challenges/1</a></p>
+</div>
+<p>To clone the repository you could use the following command.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/examples
+git clone git@github.com:ADMIcloud/examples.git .
+</pre></div>
+</div>
+<p>To download and unzip the zip archive of the code, you could do,</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nb">cd</span> ~/examples
+wget https://github.com/ADMIcloud/examples/archive/master.zip
+unzip master.zip
+rm master.zip
+mv examples-master/* .
+rm -rf examples-master
+</pre></div>
+</div>
+<p>Once you have the code cloned (or downloaded) change directory to <strong>hadoop-wordcount</strong> and compile.</p>
 </div>
 <div class="section" id="running-the-code">
 <h2>Running the Code<a class="headerlink" href="#running-the-code" title="Permalink to this headline">¶</a></h2>
-<p>Next we will run the example on distributed mode. Before we do so, we need to create a set of input files that will be given to the program.</p>
-<p>First create a directory in which to put all the input files. The program will read all the files that are in this folder. Use the following commands to create the files and directories.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>mkdir wordcount_input
-<span class="nb">cd</span> wordcount_input
-vim 1.txt
-vim 2.txt
+<p>The Word Count example comes with two random text files. You can find these under <strong>~/examples/hadoop-wordcount/src/main/resources</strong></p>
+<p>Create a directory in HDFS to copy these two files.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/bin/hdfs dfs -mkdir wordcount_input
+<span class="nv">$HADOOP_PREFIX</span>/bin/hdfs dfs -put ~/examples/hadoop-wordcount/src/main/resources/*.txt wordcount_input
 </pre></div>
 </div>
-<p>Create two text files 1.txt and 2.txt under the folder containing the following:</p>
-<p>1.txt - Hello World Bye World</p>
-<p>2.txt - Hello Hadoop Goodbye Hadoop</p>
-<p>Create a directory on HDFS and copy these two files into HDFS.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -mkdir wordcount_input
-<span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -put wordcount_input/* wordcount_input
+<p>You can check the files in HDFS using,</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/bin/hdfs dfs -ls wordcount_input
 </pre></div>
 </div>
-<p>You can check the files on HDFS using.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -ls wordcount_input
+<p>To run the mapreduce job, execute the following command .</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/bin/hadoop jar ~/examples/hadoop-wordcount/target/hadoop-wordcount-1.0.jar admicloud.hadoop.wordcount.WordCount wordcount_input wordcount_output
 </pre></div>
 </div>
-<p>To run the mapreduce job execute the following command from the Hadoop directory:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hadoop jar target/hadoop-wordcount-1.0.jar admicloud.hadoop.wordcount.WordCount wordcount_input wordcount_output
-</pre></div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+<div><strong>Hadoop Tip</strong></div></blockquote>
+<p class="last">If the wordcount_output already exists, delete it before running the code. Use the following command to delete the directory from HDFS.</p>
 </div>
-<p>If the wordcount_output already exists, delete it before running the code.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -rm -r wordcount_output
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/bin/hdfs dfs -rm -r wordcount_output
 </pre></div>
 </div>
 <p>After the job has completed, execute the following command and check the output that was generated.</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_HOME</span>/bin/hdfs dfs -cat wordcount_output/*
-Bye 1
-Goodbye     1
-Hadoop      2
-Hello       2
-World       2
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="nv">$HADOOP_PREFIX</span>/bin/hdfs dfs -cat wordcount_output/*
+</pre></div>
+</div>
+<p>You should see quite a bit of text lines where the last four lines are listed below.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>with    5
+work    5
+you     80
+your    38
 </pre></div>
 </div>
 </div>
