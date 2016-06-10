@@ -239,7 +239,7 @@ This will build the jar file inside target folder.
 .. code-block:: bash
 
     cd ../apache-storm-1.0.1
-    ./bin/storm jar ../examples/storm-example/target/storm-example-1.0-jar-with-dependencies.jar admicloud.storm.wordcount.WordCountTopology WordCount
+    ./bin/storm jar ../../examples/storm-example/target/storm-example-1.0-jar-with-dependencies.jar admicloud.storm.wordcount.WordCountTopology WordCount
 
 You can view the topology by going to the web browser.
 
