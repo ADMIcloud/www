@@ -38,9 +38,11 @@ Preparation
 
         sudo apt-get install vim
 
-    .. note:: Once inside vim, to edit text you'll first need to press the letter **i**.
-        Then to escape from the editing mode, you can press **Esc** key. To save, press **:w** and
-        to quit, press **:q**
+    .. note::
+
+            **Vim Tip**
+
+        To edit text you'll first need to press the letter **i**. Then to escape from the editing mode, you can press **Esc** key. To save, press **:w** and to quit, press **:q**
 
 3. SSH and Rsync
 
@@ -188,7 +190,9 @@ Apache Hadoop Configuration
 
 Modify the following files in Apache Hadoop distribution.
 
-.. note:: Make sure the environment variable $HADOOP_PREFIX is set correctly before proceeding with the following.
+.. note::
+        **Hadoop Tip**
+    Make sure the environment variable $HADOOP_PREFIX is set correctly before proceeding with the following.
 
 1. core-site.xml
 

@@ -182,67 +182,85 @@ The complete code of the WordCount example is visible below.
 Compiling the Code
 ------------------
 
-.. code-block:: bash
-    git clone https://github.com/ADMIcloud/examples.git
-    cd examples/hadoop-wordcount
-    mvn clean install
+The code for Word Count and other examples are provided in the GitHub repository at https://github.com/ADMIcloud/examples.
+If you haven't already done so, please take a copy of this to your instance. This could either be done by making a
+clone or downloading a zip archive of the code.
 
+.. note::
+        **Git Tip**
+    A good introduction to Git and GitHub is available at https://try.github.io/levels/1/challenges/1
+
+To clone the repository you could use the following command.
+
+.. code-block:: bash
+
+    cd ~/examples
+    git clone git@github.com:ADMIcloud/examples.git .
+
+To download and unzip the zip archive of the code, you could do,
+
+.. code-block:: bash
+
+    cd ~/examples
+    wget https://github.com/ADMIcloud/examples/archive/master.zip
+    unzip master.zip
+    rm master.zip
+    mv examples-master/* .
+    rm -rf examples-master
+
+Once you have the code cloned (or downloaded) change directory to **hadoop-wordcount** and compile.
+
+.. code-block:: bash
+    cd ~/examples/hadoop-wordcount
+    mvn clean install
 
 Running the Code
 ----------------
 
-Next we will run the example on distributed mode. Before we do so, we need to create a set of input files that will be given to the program.
+The Word Count example comes with two random text files. You can find these under **~/examples/hadoop-wordcount/src/main/resources**
 
-First create a directory in which to put all the input files. The program will read all the files that are in this folder. Use the following commands to create the files and directories.
-
-.. code-block:: bash
-
-    mkdir wordcount_input
-    cd wordcount_input
-    vim 1.txt
-    vim 2.txt
-
-Create two text files 1.txt and 2.txt under the folder containing the following:
-
-1.txt - Hello World Bye World
-
-2.txt - Hello Hadoop Goodbye Hadoop
-
-Create a directory on HDFS and copy these two files into HDFS.
+Create a directory in HDFS to copy these two files.
 
 .. code-block:: bash
 
-    $HADOOP_HOME/bin/hdfs dfs -mkdir wordcount_input
-    $HADOOP_HOME/bin/hdfs dfs -put wordcount_input/* wordcount_input
+    $HADOOP_PREFIX/bin/hdfs dfs -mkdir wordcount_input
+    $HADOOP_PREFIX/bin/hdfs dfs -put ~/examples/hadoop-wordcount/src/main/resources/*.txt wordcount_input
 
-You can check the files on HDFS using.
-
-.. code-block:: bash
-
-    $HADOOP_HOME/bin/hdfs dfs -ls wordcount_input
-
-To run the mapreduce job execute the following command from the Hadoop directory:
+You can check the files in HDFS using,
 
 .. code-block:: bash
 
-    $HADOOP_HOME/bin/hadoop jar target/hadoop-wordcount-1.0.jar admicloud.hadoop.wordcount.WordCount wordcount_input wordcount_output
+    $HADOOP_PREFIX/bin/hdfs dfs -ls wordcount_input
 
-If the wordcount_output already exists, delete it before running the code.
+To run the mapreduce job, execute the following command .
 
 .. code-block:: bash
 
-    $HADOOP_HOME/bin/hdfs dfs -rm -r wordcount_output
+    $HADOOP_PREFIX/bin/hadoop jar ~/examples/hadoop-wordcount/target/hadoop-wordcount-1.0.jar admicloud.hadoop.wordcount.WordCount wordcount_input wordcount_output
+
+.. note::
+        **Hadoop Tip**
+    If the wordcount_output already exists, delete it before running the code. Use the following command to delete the directory from HDFS.
+
+.. code-block:: bash
+
+    $HADOOP_PREFIX/bin/hdfs dfs -rm -r wordcount_output
 
 
 After the job has completed, execute the following command and check the output that was generated.
 
 .. code-block:: bash
 
-    $HADOOP_HOME/bin/hdfs dfs -cat wordcount_output/*
-    Bye	1
-    Goodbye	1
-    Hadoop	2
-    Hello	2
-    World	2
+    $HADOOP_PREFIX/bin/hdfs dfs -cat wordcount_output/*
+
+You should see quite a bit of text lines where the last four lines are listed below.
+
+.. code-block:: bash
+
+    with    5
+    work    5
+    you     80
+    your    38
+
 
 
