@@ -12,11 +12,11 @@ Day one (Friday June 10)
 
     12:00 - 1:30  Lunch
 
-    2:00 - 5:00   Labs by IU staff
+    2:00 - 4:00   Labs by IU staff
 
     5:00 - 7:00   Dinner
 
-    7:00 - 8:30   Course Revision Homework
+    7:00 - 8:30   Course Revision Homework (Independant on your own)
 
 Day Two (Saturday June 11)
 --------------------------
@@ -25,11 +25,11 @@ Day Two (Saturday June 11)
 
     12:00 - 1:30  Lunch
 
-    2:00 - 5:00   Labs by IU staff
+    2:00 - 4:00   Labs by IU staff
 
     5:00 - 7:00   Dinner
 
-    7:00 - 8:30   Course Revision Homework
+    7:00 - 8:30   Course Revision Homework (Independant on your own)
 
 Day Three (Sunday June 12)
 --------------------------
